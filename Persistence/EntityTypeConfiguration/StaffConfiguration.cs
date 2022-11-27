@@ -8,9 +8,9 @@ namespace Persistence.EntityTypeConfiguration
     {
         public void Configure(EntityTypeBuilder<Staff> builder)
         {
-            builder.HasKey(note => note.Id);
-            builder.HasIndex(note => note.Id).IsUnique();
-            //builder.Property(note => note.Surname).HasMaxLength(250);
+            builder.HasKey(staff => staff.Id);
+            builder.HasIndex(staff => staff.Id).IsUnique();
+            //builder.Property(staff => staff.Surname).HasMaxLength(250);
         }
 
     }
