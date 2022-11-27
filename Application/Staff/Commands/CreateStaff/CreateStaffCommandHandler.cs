@@ -7,16 +7,16 @@ using Domain;
 
 namespace Application.Staff.Commands.CreateStaff
 {
-    public class CreateStaffCommandHandler
+    public class CreateStaffCommandHandler //обработчик создания пользователя
     : IRequestHandler<CreateStaffCommand, Guid>
-    {
+    {//содержит логику создания
         private readonly IStaffDbContext _dbContext;
 
         public CreateStaffCommandHandler(IStaffDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CreateStaffCommand request,
-            CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateStaffCommand request,//логика обработки команды
+            CancellationToken cancellationToken) //формирование сотрудника, возвращаем ID созданного сотрудника
         {
             var staff = new Domain.Staff
             {
@@ -27,7 +27,7 @@ namespace Application.Staff.Commands.CreateStaff
                 DateOfBirth= request.DateOfBirth,
             };
 
-            await _dbContext.Staff.AddAsync(staff, cancellationToken);
+            await _dbContext.Staff.AddAsync(staff, cancellationToken);//сохраниение изменения в БД
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return staff.Id;

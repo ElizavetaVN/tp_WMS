@@ -16,9 +16,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Staff\Queries\GetStaffDetails\" />
-    <Folder Include="Staff\Queries\GetStaffList\" />
-  </ItemGroup>
-
 </Project>

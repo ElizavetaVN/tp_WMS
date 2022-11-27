@@ -2,8 +2,8 @@
 using MediatR;
 
 namespace Application.Staff.Commands.CreateStaff
-{
-    public class CreateStaffCommand : IRequest<Guid>
+{//хранит информацию, что необходимо для создания сотрудника
+    public class CreateStaffCommand : IRequest<Guid> //помечает результат выполнения команды, вернет результат определенного типа
     {
         public Guid Position { get; set; }
         public string Surname { get; set; }
