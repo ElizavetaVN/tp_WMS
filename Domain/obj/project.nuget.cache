@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "suB+qK3T8rWftZNtV+0/Jggbm2YlC7tGz72qyY0sTzsxTspvycpwl9qtNhafoMgNTL15NcaJc58+YjVZ5d8aFQ==",
+  "dgSpecHash": "YCNPMXyOGmKHx4fUg10L0G9ZVWVtp0NaRDjOq5nv6eBg8cdkxIZM0OHlxKmWrmrHbkN7XW7bxOTjv7cZN8+1Ow==",
   "success": true,
   "projectFilePath": "C:\\Users\\Елизавета\\source\\repos\\WMS\\Domain\\Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Елизавета\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Елизавета\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
