@@ -35,6 +35,40 @@ namespace WebApi.Controllers
         {
             return Ok(await Mediator.Send(new GetAllUnitsQuery()));
         }
-
+        /// <summary>
+        /// Gets Product Entity by Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(await Mediator.Send(new GetUnitByIdQuery { Id = id }));
+        }
+        /// <summary>
+        /// Deletes Product Entity based on Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteUnitByIdCommand { Id = id }));
+        }
+        /// <summary>
+        /// Updates the Product Entity based on Id.   
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Update(int id, UpdateUnitCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+            return Ok(await Mediator.Send(command));
+        }
     }
 }
