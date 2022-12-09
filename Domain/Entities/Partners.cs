@@ -8,7 +8,6 @@ namespace Domain.Entities
         public int OGRN { get; set; }
         public int OKPO { get; set; }
         public int KPP { get; set; }
-        //public string Comment { get; set; }
         public string LegalAddress { get; set; }
         public string ActuallAddress { get; set; }
         public string PostallAddress { get; set; }

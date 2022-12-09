@@ -55,6 +55,7 @@ namespace Persistence.Context
             modelBuilder.Entity<RegistrationWriteType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             modelBuilder.Entity<Units>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             modelBuilder.Entity<Warehouses>().Property(p => p.FullName).HasColumnType("nvarchar(500)");
+            
 
             base.OnModelCreating(modelBuilder);
         }

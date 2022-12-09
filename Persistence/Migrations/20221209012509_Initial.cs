@@ -19,7 +19,8 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_OrderType", x => x.Id);
                 });
-
+            migrationBuilder.InsertData("OrderType", "Name", "Заказ клиента");
+            migrationBuilder.InsertData("OrderType", "Name", "Заказ поставщику");
             migrationBuilder.CreateTable(
                 name: "Partners",
                 columns: table => new
@@ -103,7 +104,7 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     OrderTypeId = table.Column<int>(type: "int", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,6 +116,17 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+            migrationBuilder.InsertData("OrderStatus", "Name", "Новый");
+
+            migrationBuilder.InsertData("OrderStatus", "Name", "Ожидает проверки");
+
+            migrationBuilder.InsertData("OrderStatus", "Name", "Ожидает отгрузки");
+
+            migrationBuilder.InsertData("OrderStatus", "Name", "Принят");
+
+            migrationBuilder.InsertData("OrderStatus", "Name", "Выполнен");
+
+            migrationBuilder.InsertData("OrderStatus", "Name", "Отменен");
 
             migrationBuilder.CreateTable(
                 name: "Products",

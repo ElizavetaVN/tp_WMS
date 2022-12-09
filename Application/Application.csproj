@@ -14,12 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\WarehouseFeatures\Commands\" />
-    <Folder Include="Features\WarehouseFeatures\Queries\" />
-    <Folder Include="Features\OrderStatusFeatures\" />
-    <Folder Include="Features\OrderTypeFeatures\" />
-    <Folder Include="Features\PartnerFeatures\" />
-    <Folder Include="Features\OrderFeatures\" />
     <Folder Include="Features\RealizationFeatures\" />
     <Folder Include="Features\RealizationTypeFeatures\" />
     <Folder Include="Features\MovingFeatures\" />

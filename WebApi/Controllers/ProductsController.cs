@@ -31,7 +31,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllProductsQuery()));
+            return Ok(await Mediator.Send(new GetAllProductQuery()));
         }
         /// <summary>
         /// Gets Product Entity by Id.
