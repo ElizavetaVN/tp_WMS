@@ -6,6 +6,6 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         public OrderType OrderType { get; set; }
-        public bool Status { get; set; }
+        //public bool Status { get; set; }
     }
 }

@@ -1,0 +1,10 @@
+C:\Users\Елизавета\source\repos\WMS\Domain\bin\Release\netcoreapp3.1\Domain.deps.json
+C:\Users\Елизавета\source\repos\WMS\Domain\bin\Release\netcoreapp3.1\Domain.dll
+C:\Users\Елизавета\source\repos\WMS\Domain\bin\Release\netcoreapp3.1\Domain.pdb
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.csproj.AssemblyReference.cache
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.AssemblyInfoInputs.cache
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.AssemblyInfo.cs
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.csproj.CoreCompileInputs.cache
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.dll
+C:\Users\Елизавета\source\repos\WMS\Domain\obj\Release\netcoreapp3.1\Domain.pdb

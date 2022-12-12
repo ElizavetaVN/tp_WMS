@@ -106,19 +106,53 @@ namespace Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("OrderTypeId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderTypeId");
 
                     b.ToTable("OrderStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Без статуса"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Новый"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Ожидает проверки"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Ожидает отгрузки"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Принят"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Выполнен"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Отменен"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.OrderType", b =>
@@ -129,11 +163,28 @@ namespace Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("OrderType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Заказ клиента"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Заказ поставщика"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Все"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Orders", b =>
@@ -315,11 +366,23 @@ namespace Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("RealizationType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Реализация товаров"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Поступление товаров"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.RegistrationWrite", b =>
@@ -374,11 +437,23 @@ namespace Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("RegistrationWriteType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Оприходование"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Списание"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Units", b =>

@@ -19,7 +19,6 @@
     <Folder Include="Features\MovingFeatures\" />
     <Folder Include="Features\RegistrationWriteTypeFeatures\" />
     <Folder Include="Features\RegistrationWriteFeatures\" />
-    <Folder Include="Features\InventoryFeatures\" />
   </ItemGroup>
 
 </Project>

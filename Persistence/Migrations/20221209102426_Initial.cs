@@ -13,14 +13,13 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderType", x => x.Id);
                 });
-            migrationBuilder.InsertData("OrderType", "Name", "Заказ клиента");
-            migrationBuilder.InsertData("OrderType", "Name", "Заказ поставщику");
+
             migrationBuilder.CreateTable(
                 name: "Partners",
                 columns: table => new
@@ -49,7 +48,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,7 +61,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,9 +101,8 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: true),
-                    OrderTypeId = table.Column<int>(type: "int", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -116,17 +114,6 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-            migrationBuilder.InsertData("OrderStatus", "Name", "Новый");
-
-            migrationBuilder.InsertData("OrderStatus", "Name", "Ожидает проверки");
-
-            migrationBuilder.InsertData("OrderStatus", "Name", "Ожидает отгрузки");
-
-            migrationBuilder.InsertData("OrderStatus", "Name", "Принят");
-
-            migrationBuilder.InsertData("OrderStatus", "Name", "Выполнен");
-
-            migrationBuilder.InsertData("OrderStatus", "Name", "Отменен");
 
             migrationBuilder.CreateTable(
                 name: "Products",
@@ -354,6 +341,48 @@ namespace Persistence.Migrations
                         principalTable: "RealizationType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderStatus",
+                columns: new[] { "Id", "Name", "OrderTypeId" },
+                values: new object[,]
+                {
+                    { 1, "Без статуса", null },
+                    { 2, "Новый", null },
+                    { 3, "Ожидает проверки", null },
+                    { 4, "Ожидает отгрузки", null },
+                    { 5, "Принят", null },
+                    { 6, "Выполнен", null },
+                    { 7, "Отменен", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderType",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Заказ клиента" },
+                    { 2, "Заказ поставщика" },
+                    { 3, "Все" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RealizationType",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Реализация товаров" },
+                    { 2, "Поступление товаров" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RegistrationWriteType",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Оприходование" },
+                    { 2, "Списание" }
                 });
 
             migrationBuilder.CreateIndex(
