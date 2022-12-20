@@ -11,20 +11,20 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:WebApi.Controllers.ProductController.GetAll">
+        <member name="M:WebApi.Controllers.ProductController.Index">
             <summary>
             Gets all Products.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:WebApi.Controllers.ProductController.GetById(System.Int32)">
+        <member name="M:WebApi.Controllers.ProductController.Delete(System.Int32)">
             <summary>
             Gets Product Entity by Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:WebApi.Controllers.ProductController.Delete(System.Int32)">
+        <member name="M:WebApi.Controllers.ProductController.Delete1(System.Int32)">
             <summary>
             Deletes Product Entity based on Id.
             </summary>

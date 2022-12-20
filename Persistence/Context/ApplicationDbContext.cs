@@ -1,12 +1,14 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Persistence.Context
 {
-    public class ApplicationDbContext : 
-            DbContext, 
+    public class ApplicationDbContext :
+            IdentityDbContext<IdentityUser>, 
             IInventoryDbContext, 
             IMovingDbContext, 
             IOrderDbContext, 
@@ -47,14 +49,14 @@ namespace Persistence.Context
             modelBuilder.Entity<Orders>().Property(p => p.Data).HasColumnType("datetime");
             //modelBuilder.Entity<OrderStatus>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             //modelBuilder.Entity<OrderType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            modelBuilder.Entity<Partners>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            modelBuilder.Entity<Products>().Property(p => p.Name).HasColumnType("nvarchar(50)");
+            //modelBuilder.Entity<Partners>().Property(p => p.Name).HasColumnType("nvarchar(50)");
+            //modelBuilder.Entity<Products>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             modelBuilder.Entity<Realization>().Property(p => p.Data).HasColumnType("datetime");
             //modelBuilder.Entity<RealizationType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             modelBuilder.Entity<RegistrationWrite>().Property(p => p.Data).HasColumnType("datetime");
             //modelBuilder.Entity<RegistrationWriteType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            modelBuilder.Entity<Units>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            modelBuilder.Entity<Warehouses>().Property(p => p.FullName).HasColumnType("nvarchar(500)");
+            //modelBuilder.Entity<Units>().Property(p => p.Name).HasColumnType("nvarchar(50)");
+            //modelBuilder.Entity<Warehouses>().Property(p => p.FullName).HasColumnType("nvarchar(500)");
 
             modelBuilder.Entity<OrderStatus>().HasData(new OrderStatus[] {
                 new OrderStatus{Id = 1,Name="Без статуса"},
@@ -77,6 +79,35 @@ namespace Persistence.Context
             modelBuilder.Entity<RealizationType>().HasData(new RealizationType[] {
                 new RealizationType{Id = 1,Name="Реализация товаров"},
                 new RealizationType{Id = 2, Name="Поступление товаров"},
+            });
+
+            modelBuilder.Entity<IdentityUser>(entity =>
+            {
+                entity.ToTable(name: "User");
+            });
+            modelBuilder.Entity<IdentityRole>(entity =>
+            {
+                entity.ToTable(name: "Role");
+            });
+            modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+            {
+                entity.ToTable("UserRoles");
+            });
+            modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
+            {
+                entity.ToTable("UserClaims");
+            });
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+            {
+                entity.ToTable("UserLogins");
+            });
+            modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
+            {
+                entity.ToTable("RoleClaims");
+            });
+            modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+            {
+                entity.ToTable("UserTokens");
             });
 
             base.OnModelCreating(modelBuilder);

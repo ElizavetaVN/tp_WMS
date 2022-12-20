@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitFeatures.Commands
 {
-    public class UpdateUnitCommand : IRequest<int>
+    public class UpdateUnitCommand : IRequest<Units>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public class UpdateUnitCommandHandler : IRequestHandler<UpdateUnitCommand, int>
+        public class UpdateUnitCommandHandler : IRequestHandler<UpdateUnitCommand, Units>
         {
             private readonly IUnitDbContext _context;
             public UpdateUnitCommandHandler(IUnitDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(UpdateUnitCommand command, CancellationToken cancellationToken)
+            public async Task<Units> Handle(UpdateUnitCommand command, CancellationToken cancellationToken)
             {
                 var unit = _context.Units.Where(a => a.Id == command.Id).FirstOrDefault();
 
@@ -33,7 +34,7 @@ namespace Application.Features.UnitFeatures.Commands
                 {
                     unit.Name = command.Name;
                     await _context.SaveChangesAsync();
-                    return unit.Id;
+                    return unit;
                 }
             }
         }

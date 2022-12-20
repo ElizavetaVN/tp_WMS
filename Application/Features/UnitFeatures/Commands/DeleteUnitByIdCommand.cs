@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,23 +11,23 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UnitFeatures.Commands
 {
-    public class DeleteUnitByIdCommand : IRequest<int>
+    public class DeleteUnitByIdCommand : IRequest<Units>
     {
         public int Id { get; set; }
-        public class DeleteUnitByIdCommandHandler : IRequestHandler<DeleteUnitByIdCommand, int>
+        public class DeleteUnitByIdCommandHandler : IRequestHandler<DeleteUnitByIdCommand, Units>
         {
             private readonly IUnitDbContext _context;
             public DeleteUnitByIdCommandHandler(IUnitDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(DeleteUnitByIdCommand command, CancellationToken cancellationToken)
+            public async Task<Units> Handle(DeleteUnitByIdCommand command, CancellationToken cancellationToken)
             {
                 var unit = await _context.Units.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
                 if (unit == null) return default;
                 _context.Units.Remove(unit);
                 await _context.SaveChangesAsync();
-                return unit.Id;
+                return unit;
             }
         }
     }

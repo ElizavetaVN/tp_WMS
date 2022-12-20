@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Domain.Entities.Products>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Product</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Код
+            </th>
+            <th>
+                Name
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <a class="btn btn-primary" asp-controller="Products" asp-action="Create">Create</a>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                
+                <td>
+                    <a class="btn btn-sm btn-primary"  asp-controller="Products" asp-action="Update" asp-route-Id="@user.Id">Update</a>
+                    <a class="btn btn-sm btn-primary" asp-controller="Products" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                </td>
+            </tr>
+           
+        }
+    </tbody>
+</table>
+
+
+
+
