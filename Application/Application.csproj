@@ -13,12 +13,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\RealizationFeatures\" />
-    <Folder Include="Features\RealizationTypeFeatures\" />
-    <Folder Include="Features\MovingFeatures\" />
-    <Folder Include="Features\RegistrationWriteTypeFeatures\" />
-    <Folder Include="Features\RegistrationWriteFeatures\" />
-  </ItemGroup>
-
 </Project>

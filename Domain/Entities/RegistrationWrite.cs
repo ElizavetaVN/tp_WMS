@@ -3,9 +3,9 @@ using System;
 
 namespace Domain.Entities
 {
-    public class RegistrationWrite : BaseEntity
+    public class RegistrationWrite : BaseEntity//оприходование/списание
     {
-        public RegistrationWriteType RegistrationWriteType { get; set; }
+        public RegistrationWriteType RegistrationWriteType { get; set; } 
         public Inventory Inventory { get; set; }
         public Warehouses Warehouses { get; set; }
         public Products Products { get; set; }
