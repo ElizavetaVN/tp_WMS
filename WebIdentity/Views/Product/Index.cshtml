@@ -1,41 +1,56 @@
 ﻿@model IEnumerable<Domain.Entities.Products>
 
-
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Product</h1>
-<table class="table table-striped">
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Product" asp-action="Create">Create</a>
+</p>
+<table class="table">
     <thead>
         <tr>
             <th>
-                Код
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                Name
+                Units
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <a class="btn btn-primary" asp-controller="Product" asp-action="Create">Create</a>
-        @foreach (var user in Model)
-        {
+    @foreach (var item in Model) {
             <tr>
-                <td>@user.Id</td>
-                <td>@user.Name</td>
-                
                 <td>
-                    <a class="btn btn-sm btn-primary"  asp-controller="Product" asp-action="Update" asp-route-Id="@user.Id">Update</a>
-                    <a class="btn btn-sm btn-primary" asp-controller="Product" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Units.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArticleNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-controller="Product" asp-action="Update" asp-route-Id="@item.Id">Update</a>
+                    <a class="btn btn-sm btn-primary" asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id">Details</a>
+                    @if (@item.Status == false)
+                    {
+                        <a class="btn btn-sm btn-primary" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
                 </td>
             </tr>
-           
-        }
+    }
     </tbody>
 </table>
-
-
-
-

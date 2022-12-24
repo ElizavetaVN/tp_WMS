@@ -21,7 +21,7 @@ namespace Application.Features.ProductFeatures.Commands
             public async Task<Products> Handle(DeleteProductByIdCommand command, CancellationToken cancellationToken)
             {
                 var product = await _context.Products.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-                if (product == null) return default;
+                if ((product == null) && (product.Status != true)) return default;
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
                 return product;

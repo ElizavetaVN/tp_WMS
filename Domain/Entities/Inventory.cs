@@ -13,5 +13,6 @@ namespace Domain.Entities
         public Warehouses Warehouses { get; set; }
         public int Deviation { get; set; }
         public string Employee { get; set; }
+        public bool Status { get; set; }
     }
 }

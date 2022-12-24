@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.PartnerFeatures.Commands
 {
-    public class CreatePartnerCommand : IRequest<int>
+    public class CreatePartnerCommand : IRequest<Partners>
     {
         public string Name { get; set; }
         public int INN { get; set; }
@@ -21,14 +21,14 @@ namespace Application.Features.PartnerFeatures.Commands
         public string PostallAddress { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public class CreatePartnerCommandHandler : IRequestHandler<CreatePartnerCommand, int>
+        public class CreatePartnerCommandHandler : IRequestHandler<CreatePartnerCommand, Partners>
         {
             private readonly IPartnerDbContext _context;
             public CreatePartnerCommandHandler(IPartnerDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(CreatePartnerCommand command, CancellationToken cancellationToken)
+            public async Task<Partners> Handle(CreatePartnerCommand command, CancellationToken cancellationToken)
             {
                 var Partner = new Partners();
                 Partner.Name = command.Name;
@@ -43,7 +43,7 @@ namespace Application.Features.PartnerFeatures.Commands
                 Partner.Email = command.Email;
                 _context.Partners.Add(Partner);
                 await _context.SaveChangesAsync();
-                return Partner.Id;
+                return Partner;
             }
         }
     }

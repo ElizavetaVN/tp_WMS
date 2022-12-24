@@ -113,7 +113,8 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -508,8 +509,7 @@ namespace Persistence.Migrations
                 values: new object[,]
                 {
                     { 1, "Заказ клиента" },
-                    { 2, "Заказ поставщика" },
-                    { 3, "Все" }
+                    { 2, "Заказ поставщику" }
                 });
 
             migrationBuilder.InsertData(
@@ -517,7 +517,7 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Реализация товаров" },
+                    { 1, "Списание товаров" },
                     { 2, "Поступление товаров" }
                 });
 

@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.WarehouseFeatures.Queries
 {
-    public class GetAllOrderQuery : IRequest<IEnumerable<Warehouses>>
+    public class GetAllWarehouseQuery : IRequest<IEnumerable<Warehouses>>
     {
 
-        public class GetAllWarehousesQueryHandler : IRequestHandler<GetAllOrderQuery, IEnumerable<Warehouses>>
+        public class GetAllWarehousesQueryHandler : IRequestHandler<GetAllWarehouseQuery, IEnumerable<Warehouses>>
         {
             private readonly IWarehouseDbContext _context;
             public GetAllWarehousesQueryHandler(IWarehouseDbContext context)
             {
                 _context = context;
             }
-            public async Task<IEnumerable<Warehouses>> Handle(GetAllOrderQuery query, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Warehouses>> Handle(GetAllWarehouseQuery query, CancellationToken cancellationToken)
             {
                 var WarehouseList = await _context.Warehouses.ToListAsync();
                 if (WarehouseList == null)

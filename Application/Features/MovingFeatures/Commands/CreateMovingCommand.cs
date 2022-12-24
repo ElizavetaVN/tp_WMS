@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.MovingFeatures.Commands
 {
-    public class CreateMovingCommand : IRequest<int>
+    public class CreateMovingCommand : IRequest<Moving>
     {
         public Warehouses WarehousesFrom { get; set; }
         public Warehouses WarehousesTo { get; set; }
@@ -19,14 +19,14 @@ namespace Application.Features.MovingFeatures.Commands
         public DateTime Data { get; set; }
         public string Employee { get; set; }
 
-        public class CreateMovingCommandHandler : IRequestHandler<CreateMovingCommand, int>
+        public class CreateMovingCommandHandler : IRequestHandler<CreateMovingCommand, Moving>
         {
             private readonly IMovingDbContext _context;
             public CreateMovingCommandHandler(IMovingDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(CreateMovingCommand command, CancellationToken cancellationToken)
+            public async Task<Moving> Handle(CreateMovingCommand command, CancellationToken cancellationToken)
             {
                 var Moving = new Moving();
                 Moving.WarehousesFrom = command.WarehousesFrom;
@@ -38,7 +38,7 @@ namespace Application.Features.MovingFeatures.Commands
                 Moving.Employee = command.Employee;
                 _context.Moving.Add(Moving);
                 await _context.SaveChangesAsync();
-                return Moving.Id;
+                return Moving;
             }
         }
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.MovingFeatures.Commands
 {
-    public class UpdateMovingCommand : IRequest<int>
+    public class UpdateMovingCommand : IRequest<Moving>
     {
         public int Id { get; set; }
         public Warehouses WarehousesFrom { get; set; }
@@ -21,14 +21,14 @@ namespace Application.Features.MovingFeatures.Commands
         public DateTime Data { get; set; }
         public string Employee { get; set; }
 
-        public class UpdateMovingCommandHandler : IRequestHandler<UpdateMovingCommand, int>
+        public class UpdateMovingCommandHandler : IRequestHandler<UpdateMovingCommand, Moving>
         {
             private readonly IMovingDbContext _context;
             public UpdateMovingCommandHandler(IMovingDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(UpdateMovingCommand command, CancellationToken cancellationToken)
+            public async Task<Moving> Handle(UpdateMovingCommand command, CancellationToken cancellationToken)
             {
                 var Moving = _context.Moving.Where(a => a.Id == command.Id).FirstOrDefault();
 
@@ -46,7 +46,7 @@ namespace Application.Features.MovingFeatures.Commands
                     Moving.Data = Moving.Data;
                     Moving.Employee = Moving.Employee;
                     await _context.SaveChangesAsync();
-                    return Moving.Id;
+                    return Moving;
                 }
             }
         }

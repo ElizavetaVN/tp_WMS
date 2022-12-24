@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OrderFeatures.Commands
 {
-    public class CreateOrderCommand : IRequest<int>
+    public class CreateOrderCommand : IRequest<Orders>
     {
         public OrderType OrderType { get; set; }
         public DateTime Data { get; set; }
@@ -21,14 +21,14 @@ namespace Application.Features.OrderFeatures.Commands
         public int Units { get; set; }
         public string Comment { get; set; }
         public OrderStatus OrderStatus { get; set; }
-        public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int>
+        public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Orders>
         {
             private readonly IOrderDbContext _context;
             public CreateOrderCommandHandler(IOrderDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
+            public async Task<Orders> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
             {
                 var Order = new Orders();
                 Order.OrderType = command.OrderType;
@@ -43,7 +43,7 @@ namespace Application.Features.OrderFeatures.Commands
                 Order.OrderStatus = command.OrderStatus;
                 _context.Orders.Add(Order);
                 await _context.SaveChangesAsync();
-                return Order.Id;
+                return Order;
             }
         }
     }

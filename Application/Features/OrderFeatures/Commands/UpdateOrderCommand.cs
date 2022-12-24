@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OrderFeatures.Commands
 {
-    public class UpdateOrderCommand : IRequest<int>
+    public class UpdateOrderCommand : IRequest<Orders>
     {
         public int Id { get; set; }
         public OrderType OrderType { get; set; }
@@ -23,14 +23,14 @@ namespace Application.Features.OrderFeatures.Commands
         public int Units { get; set; }
         public string Comment { get; set; }
         public OrderStatus OrderStatus { get; set; }
-        public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, int>
+        public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Orders>
         {
             private readonly IOrderDbContext _context;
             public UpdateOrderCommandHandler(IOrderDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
+            public async Task<Orders> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
             {
                 var Order = _context.Orders.Where(a => a.Id == command.Id).FirstOrDefault();
 
@@ -51,7 +51,7 @@ namespace Application.Features.OrderFeatures.Commands
                     Order.Comment = command.Comment;
                     Order.OrderStatus = command.OrderStatus;
                     await _context.SaveChangesAsync();
-                    return Order.Id;
+                    return Order;
                 }
             }
         }

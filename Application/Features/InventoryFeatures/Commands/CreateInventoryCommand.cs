@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.InventoryFeatures.Commands
 {
-    public class CreateInventoryCommand : IRequest<int>
+    public class CreateInventoryCommand : IRequest<Inventory>
     {
         public DateTime Data { get; set; }
         public Products Products { get; set; }
@@ -20,14 +20,14 @@ namespace Application.Features.InventoryFeatures.Commands
         public int Deviation { get; set; }
         public string Employee { get; set; }
 
-        public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryCommand, int>
+        public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryCommand, Inventory>
         {
             private readonly IInventoryDbContext _context;
             public CreateInventoryCommandHandler(IInventoryDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(CreateInventoryCommand command, CancellationToken cancellationToken)
+            public async Task<Inventory> Handle(CreateInventoryCommand command, CancellationToken cancellationToken)
             {
                 var Inventory = new Inventory();
                 Inventory.Data = command.Data;
@@ -40,7 +40,7 @@ namespace Application.Features.InventoryFeatures.Commands
                 Inventory.Employee = command.Employee;
                 _context.Inventory.Add(Inventory);
                 await _context.SaveChangesAsync();
-                return Inventory.Id;
+                return Inventory;
             }
         }
     }

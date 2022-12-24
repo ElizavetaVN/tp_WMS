@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.PartnerFeatures.Commands
 {
-    public class UpdatePartnerCommand : IRequest<int>
+    public class UpdatePartnerCommand : IRequest<Partners>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,14 +23,14 @@ namespace Application.Features.PartnerFeatures.Commands
         public string PostallAddress { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public class UpdatePartnerCommandHandler : IRequestHandler<UpdatePartnerCommand, int>
+        public class UpdatePartnerCommandHandler : IRequestHandler<UpdatePartnerCommand, Partners>
         {
             private readonly IPartnerDbContext _context;
             public UpdatePartnerCommandHandler(IPartnerDbContext context)
             {
                 _context = context;
             }
-            public async Task<int> Handle(UpdatePartnerCommand command, CancellationToken cancellationToken)
+            public async Task<Partners> Handle(UpdatePartnerCommand command, CancellationToken cancellationToken)
             {
                 var Partner = _context.Partners.Where(a => a.Id == command.Id).FirstOrDefault();
 
@@ -51,7 +51,7 @@ namespace Application.Features.PartnerFeatures.Commands
                     Partner.Phone = command.Phone;
                     Partner.Email = command.Email;
                     await _context.SaveChangesAsync();
-                    return Partner.Id;
+                    return Partner;
                 }
             }
         }

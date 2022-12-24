@@ -16,9 +16,6 @@ namespace WebIdentity.Controllers
         {
             return View();
         }
-
-        
-
        
     }
 }

@@ -47,16 +47,8 @@ namespace Persistence.Context
             modelBuilder.Entity<Inventory>().Property(p => p.Data).HasColumnType("datetime");
             modelBuilder.Entity<Moving>().Property(p => p.Data).HasColumnType("datetime");
             modelBuilder.Entity<Orders>().Property(p => p.Data).HasColumnType("datetime");
-            //modelBuilder.Entity<OrderStatus>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            //modelBuilder.Entity<OrderType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            //modelBuilder.Entity<Partners>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            //modelBuilder.Entity<Products>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             modelBuilder.Entity<Realization>().Property(p => p.Data).HasColumnType("datetime");
-            //modelBuilder.Entity<RealizationType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
             modelBuilder.Entity<RegistrationWrite>().Property(p => p.Data).HasColumnType("datetime");
-            //modelBuilder.Entity<RegistrationWriteType>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            //modelBuilder.Entity<Units>().Property(p => p.Name).HasColumnType("nvarchar(50)");
-            //modelBuilder.Entity<Warehouses>().Property(p => p.FullName).HasColumnType("nvarchar(500)");
 
             modelBuilder.Entity<OrderStatus>().HasData(new OrderStatus[] {
                 new OrderStatus{Id = 1,Name="Без статуса"},
@@ -69,15 +61,14 @@ namespace Persistence.Context
             });
             modelBuilder.Entity<OrderType>().HasData(new OrderType[] {
                 new OrderType{Id = 1,Name="Заказ клиента"},
-                new OrderType{Id = 2, Name="Заказ поставщика"},
-                new OrderType{Id = 3, Name="Все"},
+                new OrderType{Id = 2, Name="Заказ поставщику"},
             });
             modelBuilder.Entity<RegistrationWriteType>().HasData(new RegistrationWriteType[] {
                 new RegistrationWriteType{Id = 1,Name="Оприходование"},
                 new RegistrationWriteType{Id = 2, Name="Списание"},
             });
             modelBuilder.Entity<RealizationType>().HasData(new RealizationType[] {
-                new RealizationType{Id = 1,Name="Реализация товаров"},
+                new RealizationType{Id = 1,Name="Списание товаров"},
                 new RealizationType{Id = 2, Name="Поступление товаров"},
             });
 

@@ -13,5 +13,6 @@ namespace Domain.Entities
         public string PostallAddress { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public bool Status { get; set; }
     }
 }

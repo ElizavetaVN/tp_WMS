@@ -24,7 +24,7 @@ namespace Application.Features.UnitFeatures.Commands
             public async Task<Units> Handle(DeleteUnitByIdCommand command, CancellationToken cancellationToken)
             {
                 var unit = await _context.Units.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
-                if (unit == null) return default;
+                if ((unit == null) && (unit.Status != true)) return default;
                 _context.Units.Remove(unit);
                 await _context.SaveChangesAsync();
                 return unit;

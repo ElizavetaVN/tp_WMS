@@ -178,12 +178,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "Заказ поставщика"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Все"
+                            Name = "Заказ поставщику"
                         });
                 });
 
@@ -376,7 +371,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Реализация товаров"
+                            Name = "Списание товаров"
                         },
                         new
                         {
@@ -465,6 +460,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
