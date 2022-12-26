@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Domain.Entities.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Orders" asp-action="Create">Create</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Type
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                Units
+            </th>
+            <th>
+                Provider
+            </th>
+            <th>
+                Warehouse
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Units.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.Provider.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warehouses.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-controller="Orders" asp-action="Update" asp-route-Id="@item.Id">Update</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

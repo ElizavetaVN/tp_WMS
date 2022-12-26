@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace Application.Features.OrderFeatures.Queries
             }
             public async Task<Orders> Handle(GetOrderByIdQuery query, CancellationToken cancellationToken)
             {
-                var Order = _context.Orders.Where(a => a.Id == query.Id).FirstOrDefault();
+                var Order1 = _context.Orders.Include(p => p.Products.Units);
+                var Order2= Order1.Include(p => p.Products.Provider);
+                var Order =  Order2.Where(a => a.Id == query.Id).FirstOrDefault();
                 if (Order == null) return null;
                 return Order;
             }

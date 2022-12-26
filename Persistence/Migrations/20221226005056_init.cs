@@ -47,6 +47,19 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderStatus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderType",
                 columns: table => new
                 {
@@ -74,7 +87,8 @@ namespace Persistence.Migrations
                     ActuallAddress = table.Column<string>(nullable: true),
                     PostallAddress = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,7 +142,8 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    FullName = table.Column<string>(nullable: true)
+                    FullName = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,26 +257,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderStatus",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    OrderTypeId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderStatus_OrderType_OrderTypeId",
-                        column: x => x.OrderTypeId,
-                        principalTable: "OrderType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -303,7 +298,8 @@ namespace Persistence.Migrations
                     Units = table.Column<int>(nullable: false),
                     WarehousesId = table.Column<int>(nullable: true),
                     Deviation = table.Column<int>(nullable: false),
-                    Employee = table.Column<string>(nullable: true)
+                    Employee = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -371,8 +367,8 @@ namespace Persistence.Migrations
                     WarehousesId = table.Column<int>(nullable: true),
                     Employee = table.Column<string>(nullable: true),
                     ProductsId = table.Column<int>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    Units = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: true),
+                    UnitsId = table.Column<int>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
                     OrderStatusId = table.Column<int>(nullable: true)
                 },
@@ -401,6 +397,12 @@ namespace Persistence.Migrations
                         name: "FK_Orders_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -491,16 +493,16 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "OrderStatus",
-                columns: new[] { "Id", "Name", "OrderTypeId" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Без статуса", null },
-                    { 2, "Новый", null },
-                    { 3, "Ожидает проверки", null },
-                    { 4, "Ожидает отгрузки", null },
-                    { 5, "Принят", null },
-                    { 6, "Выполнен", null },
-                    { 7, "Отменен", null }
+                    { 1, "Без статуса" },
+                    { 2, "Новый" },
+                    { 3, "Ожидает проверки" },
+                    { 4, "Ожидает отгрузки" },
+                    { 5, "Принят" },
+                    { 6, "Выполнен" },
+                    { 7, "Отменен" }
                 });
 
             migrationBuilder.InsertData(
@@ -615,14 +617,14 @@ namespace Persistence.Migrations
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_UnitsId",
+                table: "Orders",
+                column: "UnitsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_WarehousesId",
                 table: "Orders",
                 column: "WarehousesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderStatus_OrderTypeId",
-                table: "OrderStatus",
-                column: "OrderTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProviderId",
@@ -713,13 +715,13 @@ namespace Persistence.Migrations
                 name: "OrderStatus");
 
             migrationBuilder.DropTable(
+                name: "OrderType");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Warehouses");
-
-            migrationBuilder.DropTable(
-                name: "OrderType");
 
             migrationBuilder.DropTable(
                 name: "Partners");

@@ -4,6 +4,9 @@ using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Features.UnitFeatures.Queries;
+using Application.Features.ProductFeatures.Queries;
+using Application.Features.PartnerFeatures.Queries;
 
 namespace Application.Features.ProductFeatures.Commands
 {
@@ -12,14 +15,15 @@ namespace Application.Features.ProductFeatures.Commands
         public int Id { get; set; }
         public string Name { get; set; }
         public int ArticleNumber { get; set; }
-        public Partners Provider { get; set; }
-        public Units Units { get; set; }
-        public bool Status { get; set; }
+        public int Provider { get; set; }
+        public int Units { get; set; }
         public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Products>
         {
+            private readonly IMediator _mediator;
             private readonly IProductDbContext _context;
-            public UpdateProductCommandHandler(IProductDbContext context)
+            public UpdateProductCommandHandler(IProductDbContext context, IMediator mediator)
             {
+                _mediator = mediator;
                 _context = context;
             }
             public async Task<Products> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
@@ -32,11 +36,13 @@ namespace Application.Features.ProductFeatures.Commands
                 }
                 else
                 {
+                    var model = (await _mediator.Send(new GetUnitByIdQuery { Id = command.Units }));
+                    var model1 = (await _mediator.Send(new GetPartnerByIdQuery { Id = command.Provider }));
                     product.ArticleNumber = command.ArticleNumber;
                     product.Name = command.Name;
-                    product.Provider = command.Provider;
-                    product.Units = command.Units;
-                    product.Status = command.Status;
+                    product.Provider = model1;
+                    product.Units = model;
+                    model.Status = true;
                     await _context.SaveChangesAsync();
                     return product;
                 }

@@ -60,7 +60,14 @@ namespace WebIdentity.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var model = (await _mediator.Send(new GetWarehouseByIdQuery { Id = id }));
-            return View(model);
+            if (model.Status == true)
+            {
+                return RedirectToActionPermanent("Index");
+            }
+            else
+            {
+                return View(model);
+            }
         }
         /// <summary>
         /// Deletes Product Entity based on Id.

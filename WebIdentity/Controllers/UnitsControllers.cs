@@ -47,11 +47,11 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Index()
         {
             var model = (await _mediator.Send(new GetAllUnitsQuery()));
+            
             return View(model);
-
         }
         /// <summary>
-        /// Gets Product Entity by Id.
+        /// Gets Units Entity by Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -61,6 +61,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var model = (await _mediator.Send(new GetUnitByIdQuery { Id = id }));
+
             if (model.Status == true)
             {
                 return RedirectToActionPermanent("Index");
@@ -69,9 +70,10 @@ namespace WebApi.Controllers
             {
                 return View(model);
             }
+
         }
         /// <summary>
-        /// Deletes Product Entity based on Id.
+        /// Deletes Units Entity based on Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -106,8 +108,5 @@ namespace WebApi.Controllers
             await _mediator.Send(command);
             return RedirectToActionPermanent("Index");
         }
-       
-
-
     }
 }

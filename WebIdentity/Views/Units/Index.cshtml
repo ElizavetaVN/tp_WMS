@@ -9,6 +9,7 @@
 <p>
     <a class="btn btn-primary" asp-controller="Units" asp-action="Create">Create</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -40,11 +41,10 @@
 
                 <td>
                     <a class="btn btn-sm btn-primary" asp-controller="Units" asp-action="Update" asp-route-Id="@user.Id">Update</a>
-                    <a class="btn btn-sm btn-primary" asp-controller="Units" asp-action="Details" asp-route-Id="@user.Id">Details</a>
                     @if (@user.Status == false)
-                    {
+                     {
                         <a class="btn btn-sm btn-primary" asp-controller="Units" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
-                    }
+                     }
                 </td>
             </tr>
 

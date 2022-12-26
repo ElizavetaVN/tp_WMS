@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Application.Features.ProductFeatures.Commands;
 using Application.Features.ProductFeatures.Queries;
 using Application.Features.UnitFeatures.Queries;
-using Domain.Entities;
+using Application.Features.PartnerFeatures.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Context;
 
 namespace WebIdentity.Controllers
 {
@@ -33,12 +28,13 @@ namespace WebIdentity.Controllers
         public async Task<IActionResult> Create()
         {
             var model = await _mediator.Send(new GetAllUnitsQuery());
+            var model1 = await _mediator.Send(new GetAllPartnerQuery());
 
-            SelectList teams = new SelectList(model, "Id", "Name");
-            ViewBag.Units = teams;
+            SelectList unit = new SelectList(model, "Id", "Name");
+            ViewBag.Units = unit;
+            SelectList partner = new SelectList(model1, "Id", "Name");
+            ViewBag.Partners = partner;
 
-            //ViewBag.Units  = new SelectList(model, "Id", "Name");
-            //var users = Units.Include(u => u.Company).ToList();
             return View();
         }
         /// <summary>
@@ -77,7 +73,16 @@ namespace WebIdentity.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var model = (await _mediator.Send(new GetProductByIdQuery { Id = id }));
-            return View(model);
+
+            if (model.Status == true)
+            {
+                return RedirectToActionPermanent("Index");
+            }
+            else
+            {
+                return View(model);
+            }
+            
         }
         /// <summary>
         /// Deletes Product Entity based on Id.
@@ -88,7 +93,7 @@ namespace WebIdentity.Controllers
         public async Task<IActionResult> Delete1(int id)
         {
             await _mediator.Send(new DeleteProductByIdCommand { Id = id });
-            return RedirectToActionPermanent( "Index");
+            return RedirectToActionPermanent("Index");
         }
 
 
@@ -96,6 +101,14 @@ namespace WebIdentity.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var model = (await _mediator.Send(new GetProductByIdQuery { Id = id }));
+
+
+            SelectList unit = new SelectList(await _mediator.Send(new GetAllUnitsQuery()), "Id", "Name", model.Units);
+            ViewBag.Units = unit;
+
+            SelectList partner = new SelectList(await _mediator.Send(new GetAllPartnerQuery()), "Id", "Name", model.Provider);
+            ViewBag.Partners = partner;
+
             return View(model);
         }
         /// <summary>

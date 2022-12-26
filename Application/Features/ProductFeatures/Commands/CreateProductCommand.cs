@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.UnitFeatures.Queries;
+using Application.Features.PartnerFeatures.Queries;
 
 namespace Application.Features.ProductFeatures.Commands
 {
@@ -13,7 +14,7 @@ namespace Application.Features.ProductFeatures.Commands
     {
         public string Name { get; set; }
         public int ArticleNumber { get; set; }
-        public Partners Provider { get; set; }
+        public int Provider { get; set; }
         public int Units { get; set; }
         public bool Status { get; set; }
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Products>
@@ -28,13 +29,13 @@ namespace Application.Features.ProductFeatures.Commands
             
             public async Task<Products> Handle(CreateProductCommand command, CancellationToken cancellationToken)
             {
-                
+                var model1 = (await _mediator.Send(new GetPartnerByIdQuery { Id = command.Provider }));
                 var model = (await _mediator.Send(new GetUnitByIdQuery { Id = command.Units }));
                 var product = new Products();
                 
                 product.ArticleNumber = command.ArticleNumber;
                 product.Name = command.Name;
-                product.Provider = command.Provider;
+                product.Provider = model1;
                 product.Units = model;
                 model.Status = true;
                 product.Status = command.Status;

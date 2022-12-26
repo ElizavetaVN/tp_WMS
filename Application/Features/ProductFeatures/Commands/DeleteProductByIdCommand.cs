@@ -1,7 +1,9 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.ProductFeatures.Queries;
+using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

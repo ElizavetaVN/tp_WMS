@@ -10,7 +10,7 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221224135305_init")]
+    [Migration("20221226005056_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace Persistence.Migrations
 
                     b.Property<int>("QuantityFact")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Units")
                         .HasColumnType("int");
@@ -110,12 +113,7 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderTypeId");
 
                     b.ToTable("OrderStatus");
 
@@ -215,7 +213,7 @@ namespace Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Units")
+                    b.Property<int?>("UnitsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WarehousesId")
@@ -230,6 +228,8 @@ namespace Persistence.Migrations
                     b.HasIndex("PartnersId");
 
                     b.HasIndex("ProductsId");
+
+                    b.HasIndex("UnitsId");
 
                     b.HasIndex("WarehousesId");
 
@@ -272,6 +272,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("PostallAddress")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -483,6 +486,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -711,13 +717,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("WarehousesToId");
                 });
 
-            modelBuilder.Entity("Domain.Entities.OrderStatus", b =>
-                {
-                    b.HasOne("Domain.Entities.OrderType", "OrderType")
-                        .WithMany()
-                        .HasForeignKey("OrderTypeId");
-                });
-
             modelBuilder.Entity("Domain.Entities.Orders", b =>
                 {
                     b.HasOne("Domain.Entities.OrderStatus", "OrderStatus")
@@ -735,6 +734,10 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.Products", "Products")
                         .WithMany()
                         .HasForeignKey("ProductsId");
+
+                    b.HasOne("Domain.Entities.Units", "Units")
+                        .WithMany()
+                        .HasForeignKey("UnitsId");
 
                     b.HasOne("Domain.Entities.Warehouses", "Warehouses")
                         .WithMany()

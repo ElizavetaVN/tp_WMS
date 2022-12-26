@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.ProductFeatures.Queries;
+using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -18,13 +19,34 @@ namespace Application.Features.UnitFeatures.Commands
         public class UpdateUnitCommandHandler : IRequestHandler<UpdateUnitCommand, Units>
         {
             private readonly IUnitDbContext _context;
-            public UpdateUnitCommandHandler(IUnitDbContext context)
+            private readonly IMediator _mediator;
+            public UpdateUnitCommandHandler(IUnitDbContext context, IMediator mediator)
             {
                 _context = context;
+                _mediator = mediator;
             }
             public async Task<Units> Handle(UpdateUnitCommand command, CancellationToken cancellationToken)
             {
                 var unit = _context.Units.Where(a => a.Id == command.Id).FirstOrDefault();
+
+                var models = (await _mediator.Send(new GetAllProductQuery()));
+                foreach (var units in _context.Units)
+                {
+                    foreach (var prod in models)
+                    {
+                        if (units == prod.Units && prod != null)
+                        {
+                            units.Status = true;
+                            //await _context.SaveChangesAsync();
+                            break;
+                        }
+                        else
+                        {
+                            units.Status = false;
+                            //await _context.SaveChangesAsync();
+                        }
+                    }
+                }
 
                 if (unit == null)
                 {

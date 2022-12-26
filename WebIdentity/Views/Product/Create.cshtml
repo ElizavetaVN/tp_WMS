@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form id = "forma" asp-action="Create" method="post">
+        <form id="forma" asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -22,8 +22,16 @@
             <div class="form-group">
                 <label asp-for="Units" class="control-label"></label>
                 <p>
-                    
+
                     @Html.DropDownListFor(model => model.Units, ViewBag.Units as SelectList)
+                </p>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Provider" class="control-label"></label>
+                <p>
+                    @Html.DropDownListFor(model => model.Provider, ViewBag.Partners as SelectList)
                 </p>
             </div>
 
@@ -32,9 +40,9 @@
                 <input asp-for="ArticleNumber" name="ArticleNumber" class="form-control" />
                 <span asp-validation-for="ArticleNumber" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
-                <input id ="sub" type="submit" value="Create" class="btn btn-primary" />
+                <input id="sub" type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -44,11 +52,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<script>
-$("#sub").click(() => {
-console.log($("#forma").serializeArray())
-})
-</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

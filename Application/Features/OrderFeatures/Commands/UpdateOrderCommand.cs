@@ -1,4 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.OrderFeatures.Queries;
+using Application.Features.OrderStatusFeatures.Queries;
+using Application.Features.OrderTypeFeatures.Queries;
+using Application.Features.PartnerFeatures.Queries;
+using Application.Features.ProductFeatures.Queries;
+using Application.Features.UnitFeatures.Queries;
+using Application.Features.WarehouseFeatures.Queries;
+using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -13,21 +20,22 @@ namespace Application.Features.OrderFeatures.Commands
     public class UpdateOrderCommand : IRequest<Orders>
     {
         public int Id { get; set; }
-        public OrderType OrderType { get; set; }
         public DateTime Data { get; set; }
-        public Partners Partners { get; set; }
-        public Warehouses Warehouses { get; set; }
+        public int Partners { get; set; }
+        public int Warehouses { get; set; }
         public string Employee { get; set; }
-        public Products Products { get; set; }
+        public int Products { get; set; }
         public int Quantity { get; set; }
         public int Units { get; set; }
         public string Comment { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public int OrderStatus { get; set; }
         public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Orders>
         {
+            private readonly IMediator _mediator;
             private readonly IOrderDbContext _context;
-            public UpdateOrderCommandHandler(IOrderDbContext context)
+            public UpdateOrderCommandHandler(IOrderDbContext context, IMediator mediator)
             {
+                _mediator = mediator;
                 _context = context;
             }
             public async Task<Orders> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
@@ -40,17 +48,24 @@ namespace Application.Features.OrderFeatures.Commands
                 }
                 else
                 {
-                    Order.OrderType = command.OrderType;
-                    Order.Data = command.Data;
-                    Order.Partners = command.Partners;
-                    Order.Warehouses = command.Warehouses;
+                    var model1 = (await _mediator.Send(new GetProductByIdQuery { Id = command.Products }));
+                    var model3 = (await _mediator.Send(new GetOrderStatusByIdQuery { Id = command.OrderStatus }));
+                    var model4 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
+                    var model5 = (await _mediator.Send(new GetPartnerByIdQuery { Id = command.Partners }));
+                    Order.Data = DateTime.Now;
+                    
+                    Order.Partners = model5;
+                    
+                    Order.Warehouses = model4;
                     Order.Employee = command.Employee;
-                    Order.Products = command.Products;
+                    Order.Products = model1;
                     Order.Quantity = command.Quantity;
-                    Order.Units = command.Units;
+                    Order.Units = model1.Units;
                     Order.Comment = command.Comment;
-                    Order.OrderStatus = command.OrderStatus;
+                    Order.OrderStatus = model3;
+                    model1.Status = true;
                     await _context.SaveChangesAsync();
+                    
                     return Order;
                 }
             }

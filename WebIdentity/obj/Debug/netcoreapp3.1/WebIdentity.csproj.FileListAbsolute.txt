@@ -206,7 +206,6 @@ C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
-C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Units\Delete.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Units\Index.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Units\Update.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
@@ -214,3 +213,17 @@ C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Units\Create.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Product\Create.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Product\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Product\Update.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Product\Delete.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Units\Delete.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Partners\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Partners\Create.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Partners\Update.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Partners\Delete.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Warehouses\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Warehouses\Create.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Warehouses\Delete.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Warehouses\Update.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Create.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Update.cshtml.g.cs
