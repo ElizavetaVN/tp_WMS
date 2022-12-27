@@ -20,7 +20,11 @@ namespace Application.Features.MovingFeatures.Queries
             }
             public async Task<IEnumerable<Moving>> Handle(GetAllMovingQuery query, CancellationToken cancellationToken)
             {
-                var Moving = await _context.Moving.ToListAsync();
+                var Moving1 = _context.Moving.Include(p => p.WarehousesFrom);
+                var Moving2 = Moving1.Include(p => p.WarehousesTo);
+                var Moving3 = Moving2.Include(p => p.Products);
+                var Moving4 = Moving3.Include(p => p.Units);
+                var Moving = await Moving4.ToListAsync();
                 if (Moving == null)
                 {
                     return null;

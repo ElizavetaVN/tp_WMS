@@ -52,21 +52,27 @@ namespace Application.Features.OrderFeatures.Commands
                     var model3 = (await _mediator.Send(new GetOrderStatusByIdQuery { Id = command.OrderStatus }));
                     var model4 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
                     var model5 = (await _mediator.Send(new GetPartnerByIdQuery { Id = command.Partners }));
-                    Order.Data = DateTime.Now;
+                    if (model1 != null && model3 != null && model4 != null )
+                    {
+                        Order.Data = DateTime.Now;
+
+                        Order.Partners = model5;
+
+                        Order.Warehouses = model4;
+                        Order.Employee = command.Employee;
+                        Order.Products = model1;
+                        Order.Quantity = command.Quantity;
+                        Order.Units = model1.Units;
+                        Order.Comment = command.Comment;
+                        Order.OrderStatus = model3;
+                        model1.Status = true;
+                        await _context.SaveChangesAsync();
+                        return Order;
+                    } else
+                    {
+                        return default;
+                    }
                     
-                    Order.Partners = model5;
-                    
-                    Order.Warehouses = model4;
-                    Order.Employee = command.Employee;
-                    Order.Products = model1;
-                    Order.Quantity = command.Quantity;
-                    Order.Units = model1.Units;
-                    Order.Comment = command.Comment;
-                    Order.OrderStatus = model3;
-                    model1.Status = true;
-                    await _context.SaveChangesAsync();
-                    
-                    return Order;
                 }
             }
         }

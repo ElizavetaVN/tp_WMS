@@ -15,7 +15,6 @@ namespace WebIdentity.Controllers
     public class ProductController : Controller
     {
         public IMediator _mediator;
-
         //ApplicationDbContext db = new ApplicationDbContext();
 
         public ProductController(IMediator mediator)
@@ -100,14 +99,18 @@ namespace WebIdentity.Controllers
         [HttpGet("Update/{id}")]
         public async Task<IActionResult> Update(int id)
         {
+            
             var model = (await _mediator.Send(new GetProductByIdQuery { Id = id }));
 
-
-            SelectList unit = new SelectList(await _mediator.Send(new GetAllUnitsQuery()), "Id", "Name", model.Units);
+            var un = await _mediator.Send(new GetAllUnitsQuery());
+            SelectList unit = new SelectList(await _mediator.Send(new GetAllUnitsQuery()), "Id", "Name", model.Units.Id) ;
             ViewBag.Units = unit;
+
 
             SelectList partner = new SelectList(await _mediator.Send(new GetAllPartnerQuery()), "Id", "Name", model.Provider);
             ViewBag.Partners = partner;
+
+            
 
             return View(model);
         }

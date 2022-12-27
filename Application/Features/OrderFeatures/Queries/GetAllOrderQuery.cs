@@ -33,7 +33,6 @@ namespace Application.Features.OrderFeatures.Queries
                 var Order6 = Order5.Include(p => p.Partners);
                 var Order = await Order6.ToListAsync();
 
-                //var model = (await _mediator.Send(new GetAllOrderQuery()));
                 foreach (var unit in Order)
                 {
                     if (unit.OrderType.Id == 2 && unit.Products != null && unit.Products.Provider != null)

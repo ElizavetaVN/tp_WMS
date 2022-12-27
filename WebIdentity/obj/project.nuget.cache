@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "aJ3rw0krhNQ7BNlNY9A3ekymUDYStRirYBsQ+s4Ym6BsBfeu43BJzZ4/eUWzgkibwv+ifJpOfxjOzK3wZt7T1Q==",
+  "dgSpecHash": "G9AkPNJZKVhTJMpdk8pVJDd+w2tgHcYwYmyXa5hf0hZ518gZa28vN3eQ5jDGeWBjlT4j4WWhVDSKPiCufGKvgQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Елизавета\\source\\repos\\WMS\\WebIdentity\\WebIdentity.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Елизавета\\.nuget\\packages\\dotliquid\\2.2.677\\dotliquid.2.2.677.nupkg.sha512",
     "C:\\Users\\Елизавета\\.nuget\\packages\\mediatr\\8.0.0\\mediatr.8.0.0.nupkg.sha512",
     "C:\\Users\\Елизавета\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\8.0.0\\mediatr.extensions.microsoft.dependencyinjection.8.0.0.nupkg.sha512",
     "C:\\Users\\Елизавета\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.32\\microsoft.aspnetcore.cryptography.internal.3.1.32.nupkg.sha512",

@@ -23,7 +23,11 @@ namespace Application.Features.MovingFeatures.Commands
             }
             public async Task<Moving> Handle(DeleteMovingByIdCommand command, CancellationToken cancellationToken)
             {
-                var Moving = await _context.Moving.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
+                var Moving1 =  _context.Moving.Include(p => p.Units);
+                var Moving2 = Moving1.Include(p => p.Products);
+                var Moving3 = Moving2.Include(p => p.WarehousesFrom);
+                var Moving4 = Moving3.Include(p => p.WarehousesTo);
+                var Moving = await Moving4.Where(a => a.Id == command.Id).FirstOrDefaultAsync();
                 if (Moving == null) return default;
                 _context.Moving.Remove(Moving);
                 await _context.SaveChangesAsync();

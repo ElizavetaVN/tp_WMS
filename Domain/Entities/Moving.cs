@@ -9,7 +9,7 @@ namespace Domain.Entities
         public Warehouses WarehousesTo { get; set; }
         public Products Products { get; set; }
         public int Quantity { get; set; }
-        public int Units { get; set; }
+        public Units Units { get; set; }
         public DateTime Data { get; set; }
         public string Employee { get; set; }
     }

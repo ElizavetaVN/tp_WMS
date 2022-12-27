@@ -48,6 +48,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "DotLiquid": {
+              "target": "Package",
+              "version": "[2.2.677, )"
+            },
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[8.0.0, )"

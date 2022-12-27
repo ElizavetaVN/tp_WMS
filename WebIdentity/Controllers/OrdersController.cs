@@ -29,23 +29,10 @@ namespace WebIdentity.Controllers
         [HttpGet("Create")]
         public async Task<IActionResult> Create()
         {
-            //var model = await _mediator.Send(new GetAllProductQuery());
-            //var model1 = await _mediator.Send(new GetAllOrderStatusQuery());
             var model2 = await _mediator.Send(new GetAllOrderTypeQuery());
-            //var model3 = await _mediator.Send(new GetAllWarehouseQuery());
-            //var model4 = await _mediator.Send(new GetAllPartnerQuery());
 
-
-            //SelectList product = new SelectList(model, "Id", "Name");
-            //ViewBag.Products = product;
-            //SelectList status = new SelectList(model1, "Id", "Name");
-            //ViewBag.OrderStatus = status;
             SelectList type = new SelectList(model2, "Id", "Name");
             ViewBag.OrderType = type;
-            //SelectList warehouse = new SelectList(model3, "Id", "Name");
-            //ViewBag.Warehouses = warehouse;
-            //SelectList partner = new SelectList(model4, "Id", "Name");
-            //ViewBag.Partner = partner;
 
             return View();
         }
@@ -57,9 +44,8 @@ namespace WebIdentity.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateOrderCommand command)
         {
-            await _mediator.Send(command);
+            //await _mediator.Send(command);
             var model = await _mediator.Send(command);
-            //int id = model;
             return RedirectToActionPermanent("Update", new { id = model });
 
         }

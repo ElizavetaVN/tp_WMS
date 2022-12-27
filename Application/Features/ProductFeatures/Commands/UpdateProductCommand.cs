@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.UnitFeatures.Queries;
-using Application.Features.ProductFeatures.Queries;
 using Application.Features.PartnerFeatures.Queries;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductFeatures.Commands
 {
@@ -28,7 +28,7 @@ namespace Application.Features.ProductFeatures.Commands
             }
             public async Task<Products> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
             {
-                var product = _context.Products.Where(a => a.Id == command.Id).FirstOrDefault();
+                var product = _context.Products.Include(p => p.Units).Where(a => a.Id == command.Id).FirstOrDefault();
 
                 if (product == null)
                 {

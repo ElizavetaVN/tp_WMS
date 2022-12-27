@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Domain.Entities.Moving>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Moving" asp-action="Create">Create</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Product
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Units)
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                To
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Units.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarehousesFrom.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarehousesTo.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-controller="Moving" asp-action="Update" asp-route-Id="@item.Id">Update</a>
+                <a class="btn btn-sm btn-primary" asp-controller="Moving" asp-action="Delete" asp-route-Id="@item.Id">Delete</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

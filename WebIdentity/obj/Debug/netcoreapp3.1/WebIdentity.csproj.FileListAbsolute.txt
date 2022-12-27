@@ -227,3 +227,9 @@ C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Index.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Create.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Update.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\bin\Debug\netcoreapp3.1\DotLiquid.dll
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\bin\Debug\netcoreapp3.1\it\DotLiquid.resources.dll
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Create.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Delete.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Update.cshtml.g.cs

@@ -10,7 +10,7 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221226005056_init")]
+    [Migration("20221227002107_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,7 +83,7 @@ namespace Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Units")
+                    b.Property<int?>("UnitsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WarehousesFromId")
@@ -95,6 +95,8 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductsId");
+
+                    b.HasIndex("UnitsId");
 
                     b.HasIndex("WarehousesFromId");
 
@@ -707,6 +709,10 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.Products", "Products")
                         .WithMany()
                         .HasForeignKey("ProductsId");
+
+                    b.HasOne("Domain.Entities.Units", "Units")
+                        .WithMany()
+                        .HasForeignKey("UnitsId");
 
                     b.HasOne("Domain.Entities.Warehouses", "WarehousesFrom")
                         .WithMany()

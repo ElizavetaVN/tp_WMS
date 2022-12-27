@@ -311,6 +311,22 @@
           "WebIdentity.dll": {}
         }
       },
+      "DotLiquid/2.2.677": {
+        "runtime": {
+          "lib/netstandard2.0/DotLiquid.dll": {
+            "assemblyVersion": "2.2.677.0",
+            "fileVersion": "2.2.677.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/it/DotLiquid.resources.dll": {
+            "locale": "it"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/DotLiquid.dll": {}
+        }
+      },
       "MediatR/8.0.0": {
         "runtime": {
           "lib/netstandard2.0/MediatR.dll": {
@@ -2056,6 +2072,7 @@
       "Application/1.0.0": {
         "dependencies": {
           "Domain": "1.0.0",
+          "DotLiquid": "2.2.677",
           "MediatR.Extensions.Microsoft.DependencyInjection": "8.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.32"
         },
@@ -3677,6 +3694,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "DotLiquid/2.2.677": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KTOybbNOCM+cAly2CeIn07lYSHiXH39uVE6+0Xu7GM0WgGMZKtmacq+MRxFfCUlriMGwGntur+UPuMqN2lIySw==",
+      "path": "dotliquid/2.2.677",
+      "hashPath": "dotliquid.2.2.677.nupkg.sha512"
     },
     "MediatR/8.0.0": {
       "type": "package",

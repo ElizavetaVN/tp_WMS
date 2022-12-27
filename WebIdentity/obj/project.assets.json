@@ -2,6 +2,20 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "DotLiquid/2.2.677": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/DotLiquid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotLiquid.dll": {}
+        },
+        "resource": {
+          "lib/netstandard2.0/it/DotLiquid.resources.dll": {
+            "locale": "it"
+          }
+        }
+      },
       "MediatR/8.0.0": {
         "type": "package",
         "compile": {
@@ -2147,6 +2161,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Domain": "1.0.0",
+          "DotLiquid": "2.2.677",
           "MediatR.Extensions.Microsoft.DependencyInjection": "8.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.29"
         },
@@ -2190,6 +2205,28 @@
     }
   },
   "libraries": {
+    "DotLiquid/2.2.677": {
+      "sha512": "KTOybbNOCM+cAly2CeIn07lYSHiXH39uVE6+0Xu7GM0WgGMZKtmacq+MRxFfCUlriMGwGntur+UPuMqN2lIySw==",
+      "type": "package",
+      "path": "dotliquid/2.2.677",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "dotliquid.2.2.677.nupkg.sha512",
+        "dotliquid.nuspec",
+        "lib/net45/DotLiquid.dll",
+        "lib/net45/DotLiquid.xml",
+        "lib/net45/it/DotLiquid.resources.dll",
+        "lib/netstandard1.3/DotLiquid.dll",
+        "lib/netstandard1.3/DotLiquid.xml",
+        "lib/netstandard1.3/it/DotLiquid.resources.dll",
+        "lib/netstandard2.0/DotLiquid.dll",
+        "lib/netstandard2.0/DotLiquid.xml",
+        "lib/netstandard2.0/it/DotLiquid.resources.dll",
+        "readme.txt"
+      ]
+    },
     "MediatR/8.0.0": {
       "sha512": "cYSDJ2b/dIiwTLW/ZW/SQcXq9I3WF6KR4D0KN4hxWR08tZqcvcVS1bQXZbsANdQdTQfxx+ZFp5WkHLMyeoR5Zw==",
       "type": "package",

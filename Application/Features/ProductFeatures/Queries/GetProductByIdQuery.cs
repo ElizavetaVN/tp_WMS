@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Application.Features.ProductFeatures.Queries
 
             public async Task<Products> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
             {
-                var product = _context.Products.Where(a => a.Id == query.Id).FirstOrDefault();
+                var product = _context.Products.Include(p => p.Units).Include(p => p.Provider).Where(a => a.Id == query.Id).FirstOrDefault();
                 if (product == null) return null;
                 return product;
             }

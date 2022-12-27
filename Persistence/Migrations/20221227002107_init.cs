@@ -328,7 +328,7 @@ namespace Persistence.Migrations
                     WarehousesToId = table.Column<int>(nullable: true),
                     ProductsId = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
-                    Units = table.Column<int>(nullable: false),
+                    UnitsId = table.Column<int>(nullable: true),
                     Data = table.Column<DateTime>(type: "datetime", nullable: false),
                     Employee = table.Column<string>(nullable: true)
                 },
@@ -339,6 +339,12 @@ namespace Persistence.Migrations
                         name: "FK_Moving_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Moving_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -585,6 +591,11 @@ namespace Persistence.Migrations
                 name: "IX_Moving_ProductsId",
                 table: "Moving",
                 column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Moving_UnitsId",
+                table: "Moving",
+                column: "UnitsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Moving_WarehousesFromId",
