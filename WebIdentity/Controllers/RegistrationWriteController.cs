@@ -68,7 +68,7 @@ namespace WebIdentity.Controllers
             SelectList product = new SelectList(await _mediator.Send(new GetAllProductQuery()), "Id", "Name", model.Products);
             ViewBag.Product = product;
 
-            SelectList Inventory = new SelectList(await _mediator.Send(new GetAllInventoryQuery()), "Id", "Name", model.Inventory);
+            SelectList Inventory = new SelectList(await _mediator.Send(new GetAllInventoryQuery()), "Id", "Id", model.Inventory);
             ViewBag.Inventory = Inventory;
 
             SelectList warehouse = new SelectList(await _mediator.Send(new GetAllWarehouseQuery()), "Id", "Name", model.Warehouses);

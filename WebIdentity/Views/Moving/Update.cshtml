@@ -54,7 +54,13 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+<script>
+    $(document).ready(function () {
+        $("#Products option[value=@Model.Products.Id]").attr('selected', true);
+        $("#WarehousesFrom option[value=@Model.WarehousesFrom.Id]").attr('selected', true);
+        $("#WarehousesTo option[value=@Model.WarehousesTo.Id]").attr('selected', true);
+    });
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

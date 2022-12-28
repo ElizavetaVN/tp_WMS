@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Application.Features.InternalFeatures.Commands;
+using Application.Features.InternalFeatures.Queries;
 using Application.Features.OrderFeatures.Commands;
 using Application.Features.OrderFeatures.Queries;
 using Application.Features.OrderStatusFeatures.Queries;
@@ -44,10 +46,10 @@ namespace WebIdentity.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateOrderCommand command)
         {
-            //await _mediator.Send(command);
             var model = await _mediator.Send(command);
             return RedirectToActionPermanent("Update", new { id = model });
 
+            
         }
         /// <summary>
         /// Gets all Products.
@@ -83,7 +85,9 @@ namespace WebIdentity.Controllers
 
             SelectList partner = new SelectList(await _mediator.Send(new GetAllPartnerQuery()), "Id", "Name", model.Partners);
             ViewBag.Partners = partner;
+
             
+
             return View(model);
         }
         /// <summary>

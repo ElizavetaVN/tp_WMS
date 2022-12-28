@@ -321,6 +321,7 @@ namespace Persistence.Migrations
                     ProductsId = table.Column<int>(nullable: true),
                     StatusId = table.Column<int>(nullable: true),
                     OperationId = table.Column<int>(nullable: true),
+                    Number = table.Column<int>(nullable: false),
                     Quantity = table.Column<string>(nullable: true),
                     Data = table.Column<DateTime>(nullable: false)
                 },
@@ -363,11 +364,9 @@ namespace Persistence.Migrations
                     ProductsId = table.Column<int>(nullable: true),
                     QuantityFact = table.Column<string>(nullable: true),
                     QuantityAcc = table.Column<string>(nullable: true),
-                    Units = table.Column<int>(nullable: false),
+                    UnitsId = table.Column<int>(nullable: true),
                     WarehousesId = table.Column<int>(nullable: true),
-                    Deviation = table.Column<int>(nullable: false),
-                    Employee = table.Column<string>(nullable: true),
-                    Status = table.Column<bool>(nullable: false)
+                    Employee = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -376,6 +375,12 @@ namespace Persistence.Migrations
                         name: "FK_Inventory_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Inventory_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -548,11 +553,11 @@ namespace Persistence.Migrations
                     RealizationTypeId = table.Column<int>(nullable: true),
                     Data = table.Column<DateTime>(type: "datetime", nullable: false),
                     OrderId = table.Column<int>(nullable: true),
-                    Partners = table.Column<int>(nullable: false),
-                    Warehouses = table.Column<int>(nullable: false),
-                    Products = table.Column<int>(nullable: false),
+                    PartnersId = table.Column<int>(nullable: true),
+                    WarehousesId = table.Column<int>(nullable: true),
+                    ProductsId = table.Column<int>(nullable: true),
                     Quantity = table.Column<string>(nullable: true),
-                    Units = table.Column<int>(nullable: false),
+                    UnitsId = table.Column<int>(nullable: true),
                     Employee = table.Column<string>(nullable: true),
                     Comment = table.Column<string>(nullable: true)
                 },
@@ -566,9 +571,33 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Realization_Partners_PartnersId",
+                        column: x => x.PartnersId,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Realization_Products_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Realization_RealizationType_RealizationTypeId",
                         column: x => x.RealizationTypeId,
                         principalTable: "RealizationType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Realization_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Realization_Warehouses_WarehousesId",
+                        column: x => x.WarehousesId,
+                        principalTable: "Warehouses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -705,6 +734,11 @@ namespace Persistence.Migrations
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Inventory_UnitsId",
+                table: "Inventory",
+                column: "UnitsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Inventory_WarehousesId",
                 table: "Inventory",
                 column: "WarehousesId");
@@ -775,9 +809,29 @@ namespace Persistence.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Realization_PartnersId",
+                table: "Realization",
+                column: "PartnersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Realization_ProductsId",
+                table: "Realization",
+                column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Realization_RealizationTypeId",
                 table: "Realization",
                 column: "RealizationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Realization_UnitsId",
+                table: "Realization",
+                column: "UnitsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Realization_WarehousesId",
+                table: "Realization",
+                column: "WarehousesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RegistrationWrite_InventoryId",

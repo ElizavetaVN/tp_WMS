@@ -1,4 +1,7 @@
-﻿using Application.Features.OrderStatusFeatures.Queries;
+﻿using Application.Features.InternalFeatures.Commands;
+using Application.Features.InternalOperationFeatures.Queries;
+using Application.Features.InternalStatusFeatures.Queries;
+using Application.Features.OrderStatusFeatures.Queries;
 using Application.Features.OrderTypeFeatures.Queries;
 using Application.Features.PartnerFeatures.Queries;
 using Application.Features.ProductFeatures.Queries;
@@ -40,12 +43,20 @@ namespace Application.Features.OrderFeatures.Commands
                 var model2 = (await _mediator.Send(new GetOrderTypeByIdQuery { Id = command.OrderType }));
 
                 var Order = new Orders();
+                
 
                 Order.OrderType = model2;
                 Order.Data = DateTime.Now;
+                Order.Warehouses = (await _mediator.Send(new GetWarehouseByIdQuery { Id = 1 }));
+                Order.OrderStatus= (await _mediator.Send(new GetOrderStatusByIdQuery { Id = 1 }));
+                Order.Products = (await _mediator.Send(new GetProductByIdQuery { Id = 1 }));
+                Order.Partners = (await _mediator.Send(new GetPartnerByIdQuery { Id = 1 }));
 
                 _context.Orders.Add(Order);
                 await _context.SaveChangesAsync();
+
+                
+
                 return Order.Id;
             }
         }

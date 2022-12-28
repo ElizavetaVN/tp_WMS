@@ -22,7 +22,10 @@ namespace Application.Features.InventoryFeatures.Queries
             }
             public async Task<IEnumerable<Inventory>> Handle(GetAllInventoryQuery query, CancellationToken cancellationToken)
             {
-                var Inventory = await _context.Inventory.ToListAsync();
+                var Inventory1 = _context.Inventory.Include(p => p.Warehouses);
+                var Inventory2 = Inventory1.Include(p => p.Products);
+                var Inventory3 = Inventory2.Include(p => p.Units);
+                var Inventory = await Inventory3.ToListAsync();
                 if (Inventory == null)
                 {
                     return null;

@@ -1,4 +1,8 @@
-﻿using Application.Features.OrderFeatures.Queries;
+﻿using Application.Features.InternalFeatures.Commands;
+using Application.Features.InternalFeatures.Queries;
+using Application.Features.InternalOperationFeatures.Queries;
+using Application.Features.InternalStatusFeatures.Queries;
+using Application.Features.OrderFeatures.Queries;
 using Application.Features.OrderStatusFeatures.Queries;
 using Application.Features.OrderTypeFeatures.Queries;
 using Application.Features.PartnerFeatures.Queries;
@@ -41,17 +45,18 @@ namespace Application.Features.OrderFeatures.Commands
             public async Task<Orders> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
             {
                 var Order = _context.Orders.Where(a => a.Id == command.Id).FirstOrDefault();
-
                 if (Order == null)
                 {
                     return default;
                 }
                 else
                 {
+                    var Internal = new Internal();
                     var model1 = (await _mediator.Send(new GetProductByIdQuery { Id = command.Products }));
                     var model3 = (await _mediator.Send(new GetOrderStatusByIdQuery { Id = command.OrderStatus }));
                     var model4 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
                     var model5 = (await _mediator.Send(new GetPartnerByIdQuery { Id = command.Partners }));
+                    var model2 = (await _mediator.Send(new GetInternalByIdQuery { Id = command.Id }));
                     if (model1 != null && model3 != null && model4 != null )
                     {
                         Order.Data = DateTime.Now;
@@ -67,6 +72,7 @@ namespace Application.Features.OrderFeatures.Commands
                         Order.OrderStatus = model3;
                         model1.Status = true;
                         await _context.SaveChangesAsync();
+
                         return Order;
                     } else
                     {

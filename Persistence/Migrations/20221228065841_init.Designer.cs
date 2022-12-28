@@ -10,7 +10,7 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221228015925_init")]
+    [Migration("20221228065841_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace Persistence.Migrations
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<int?>("OperationId")
                         .HasColumnType("int");
@@ -158,9 +161,6 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("Deviation")
-                        .HasColumnType("int");
-
                     b.Property<string>("Employee")
                         .HasColumnType("nvarchar(max)");
 
@@ -173,10 +173,7 @@ namespace Persistence.Migrations
                     b.Property<string>("QuantityFact")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Units")
+                    b.Property<int?>("UnitsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WarehousesId")
@@ -185,6 +182,8 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductsId");
+
+                    b.HasIndex("UnitsId");
 
                     b.HasIndex("WarehousesId");
 
@@ -463,10 +462,10 @@ namespace Persistence.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Partners")
+                    b.Property<int?>("PartnersId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Products")
+                    b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Quantity")
@@ -475,17 +474,25 @@ namespace Persistence.Migrations
                     b.Property<int?>("RealizationTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Units")
+                    b.Property<int?>("UnitsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Warehouses")
+                    b.Property<int?>("WarehousesId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
+                    b.HasIndex("PartnersId");
+
+                    b.HasIndex("ProductsId");
+
                     b.HasIndex("RealizationTypeId");
+
+                    b.HasIndex("UnitsId");
+
+                    b.HasIndex("WarehousesId");
 
                     b.ToTable("Realization");
                 });
@@ -858,6 +865,10 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ProductsId");
 
+                    b.HasOne("Domain.Entities.Units", "Units")
+                        .WithMany()
+                        .HasForeignKey("UnitsId");
+
                     b.HasOne("Domain.Entities.Warehouses", "Warehouses")
                         .WithMany()
                         .HasForeignKey("WarehousesId");
@@ -926,9 +937,25 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("OrderId");
 
+                    b.HasOne("Domain.Entities.Partners", "Partners")
+                        .WithMany()
+                        .HasForeignKey("PartnersId");
+
+                    b.HasOne("Domain.Entities.Products", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductsId");
+
                     b.HasOne("Domain.Entities.RealizationType", "RealizationType")
                         .WithMany()
                         .HasForeignKey("RealizationTypeId");
+
+                    b.HasOne("Domain.Entities.Units", "Units")
+                        .WithMany()
+                        .HasForeignKey("UnitsId");
+
+                    b.HasOne("Domain.Entities.Warehouses", "Warehouses")
+                        .WithMany()
+                        .HasForeignKey("WarehousesId");
                 });
 
             modelBuilder.Entity("Domain.Entities.RegistrationWrite", b =>

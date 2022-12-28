@@ -1,4 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.ProductFeatures.Queries;
+using Application.Features.WarehouseFeatures.Queries;
+using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,31 +14,34 @@ namespace Application.Features.InventoryFeatures.Commands
     public class CreateInventoryCommand : IRequest<Inventory>
     {
         public DateTime Data { get; set; }
-        public Products Products { get; set; }
+        public int Products { get; set; }
         public string QuantityFact { get; set; }
         public string QuantityAcc { get; set; }
-        public int Units { get; set; }
-        public Warehouses Warehouses { get; set; }
-        public int Deviation { get; set; }
+        public Units Units { get; set; }
+        public int Warehouses { get; set; }
         public string Employee { get; set; }
 
         public class CreateInventoryCommandHandler : IRequestHandler<CreateInventoryCommand, Inventory>
         {
+            private readonly IMediator _mediator;
             private readonly IInventoryDbContext _context;
-            public CreateInventoryCommandHandler(IInventoryDbContext context)
+            public CreateInventoryCommandHandler(IInventoryDbContext context, IMediator mediator)
             {
+                _mediator = mediator;
                 _context = context;
             }
             public async Task<Inventory> Handle(CreateInventoryCommand command, CancellationToken cancellationToken)
             {
+                var model1 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
+                var model2 = (await _mediator.Send(new GetProductByIdQuery { Id = command.Products }));
+
                 var Inventory = new Inventory();
-                Inventory.Data = command.Data;
-                Inventory.Products = command.Products;
+                Inventory.Data = DateTime.Now;
+                Inventory.Products = model2;
                 Inventory.QuantityFact = command.QuantityFact;
                 Inventory.QuantityAcc = command.QuantityAcc;
-                Inventory.Units = command.Units;
-                Inventory.Warehouses = command.Warehouses;
-                Inventory.Deviation = command.Deviation;
+                Inventory.Units = model2.Units;
+                Inventory.Warehouses = model1;
                 Inventory.Employee = command.Employee;
                 _context.Inventory.Add(Inventory);
                 await _context.SaveChangesAsync();

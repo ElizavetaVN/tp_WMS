@@ -231,8 +231,13 @@ C:\Users\Елизавета\source\repos\WMS\WebIdentity\bin\Debug\netcoreapp3.1
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\bin\Debug\netcoreapp3.1\it\DotLiquid.resources.dll
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Index.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Create.cshtml.g.cs
-C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Delete.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Moving\Update.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\RegistrationWrite\Index.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\RegistrationWrite\Create.cshtml.g.cs
 C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\RegistrationWrite\Update.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Inventory\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Inventory\Create.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Inventory\Update.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Realization\Index.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Realization\Create.cshtml.g.cs
+C:\Users\Елизавета\source\repos\WMS\WebIdentity\obj\Debug\netcoreapp3.1\Razor\Views\Realization\Update.cshtml.g.cs

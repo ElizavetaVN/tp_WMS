@@ -20,7 +20,13 @@ namespace Application.Features.RealizationFeatures.Queries
             }
             public async Task<IEnumerable<Realization>> Handle(GetAllRealizationQuery query, CancellationToken cancellationToken)
             {
-                var Realization = await _context.Realization.ToListAsync();
+                var Realization1 = _context.Realization.Include(p => p.RealizationType);
+                var Realization2 = Realization1.Include(p => p.Order);
+                var Realization3 = Realization2.Include(p => p.Partners);
+                var Realization4 = Realization3.Include(p => p.Warehouses);
+                var Realization5 = Realization4.Include(p => p.Products);
+                var Realization6 = Realization5.Include(p => p.Units);
+                var Realization = await Realization6.ToListAsync();
                 if (Realization == null)
                 {
                     return null;

@@ -8,11 +8,11 @@ namespace Domain.Entities
         public RealizationType RealizationType { get; set; }
         public DateTime Data { get; set; }
         public Orders Order { get; set; }
-        public int Partners { get; set; }
-        public int Warehouses { get; set; }
-        public int Products { get; set; }
+        public Partners Partners { get; set; }
+        public Warehouses Warehouses { get; set; }
+        public Products Products { get; set; }
         public string Quantity { get; set; }
-        public int Units { get; set; }
+        public Units Units { get; set; }
         public string Employee { get; set; }
         public string Comment { get; set; }
     }

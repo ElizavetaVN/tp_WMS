@@ -70,10 +70,6 @@ namespace WebIdentity.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
 
-
-       
-
-
         [HttpGet("Update/{id}")]
         public async Task<IActionResult> Update(int id)
         {
