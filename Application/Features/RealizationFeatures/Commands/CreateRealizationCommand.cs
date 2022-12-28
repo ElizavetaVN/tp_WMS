@@ -15,7 +15,7 @@ namespace Application.Features.RealizationFeatures.Commands
         public int Partners { get; set; }
         public int Warehouses { get; set; }
         public int Products { get; set; }
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
         public int Units { get; set; }
         public string Employee { get; set; }
         public string Comment { get; set; }

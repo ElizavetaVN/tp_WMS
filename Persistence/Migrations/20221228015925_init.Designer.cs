@@ -10,7 +10,7 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221227002107_init")]
+    [Migration("20221228015925_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,133 @@ namespace Persistence.Migrations
                 .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Domain.Entities.Internal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OperationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarehousesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OperationId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("WarehousesId");
+
+                    b.ToTable("Internal");
+                });
+
+            modelBuilder.Entity("Domain.Entities.InternalOperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InternalOperation");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Оприходование"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Списание"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Заказ клиента"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Заказ поставщику"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Отгрузка"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Поступление"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.InternalStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InternalStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Оприходование"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Списание"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "К обеспечению"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Резерв"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Не в резерве"
+                        });
+                });
 
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
@@ -40,11 +167,11 @@ namespace Persistence.Migrations
                     b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuantityAcc")
-                        .HasColumnType("int");
+                    b.Property<string>("QuantityAcc")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("QuantityFact")
-                        .HasColumnType("int");
+                    b.Property<string>("QuantityFact")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -80,8 +207,8 @@ namespace Persistence.Migrations
                     b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UnitsId")
                         .HasColumnType("int");
@@ -212,8 +339,11 @@ namespace Persistence.Migrations
                     b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("UnitsId")
                         .HasColumnType("int");
@@ -339,8 +469,8 @@ namespace Persistence.Migrations
                     b.Property<int>("Products")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RealizationTypeId")
                         .HasColumnType("int");
@@ -406,13 +536,16 @@ namespace Persistence.Migrations
                     b.Property<int?>("ProductsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RegistrationWriteTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Units")
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UnitsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WarehousesId")
@@ -425,6 +558,8 @@ namespace Persistence.Migrations
                     b.HasIndex("ProductsId");
 
                     b.HasIndex("RegistrationWriteTypeId");
+
+                    b.HasIndex("UnitsId");
 
                     b.HasIndex("WarehousesId");
 
@@ -455,6 +590,11 @@ namespace Persistence.Migrations
                         {
                             Id = 2,
                             Name = "Списание"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Отгрузка"
                         });
                 });
 
@@ -693,6 +833,25 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Internal", b =>
+                {
+                    b.HasOne("Domain.Entities.InternalOperation", "Operation")
+                        .WithMany()
+                        .HasForeignKey("OperationId");
+
+                    b.HasOne("Domain.Entities.Products", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductsId");
+
+                    b.HasOne("Domain.Entities.InternalStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+
+                    b.HasOne("Domain.Entities.Warehouses", "Warehouses")
+                        .WithMany()
+                        .HasForeignKey("WarehousesId");
+                });
+
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
                     b.HasOne("Domain.Entities.Products", "Products")
@@ -785,6 +944,10 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.RegistrationWriteType", "RegistrationWriteType")
                         .WithMany()
                         .HasForeignKey("RegistrationWriteTypeId");
+
+                    b.HasOne("Domain.Entities.Units", "Units")
+                        .WithMany()
+                        .HasForeignKey("UnitsId");
 
                     b.HasOne("Domain.Entities.Warehouses", "Warehouses")
                         .WithMany()

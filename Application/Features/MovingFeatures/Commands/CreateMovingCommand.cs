@@ -16,7 +16,7 @@ namespace Application.Features.MovingFeatures.Commands
         public int WarehousesFrom { get; set; }
         public int WarehousesTo { get; set; }
         public int Products { get; set; }
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
         public Units Units { get; set; }
         public DateTime Data { get; set; }
         public string Employee { get; set; }

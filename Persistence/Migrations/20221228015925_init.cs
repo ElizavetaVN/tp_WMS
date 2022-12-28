@@ -47,6 +47,32 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InternalOperation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternalOperation", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InternalStatus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternalStatus", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderStatus",
                 columns: table => new
                 {
@@ -286,6 +312,48 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Internal",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WarehousesId = table.Column<int>(nullable: true),
+                    ProductsId = table.Column<int>(nullable: true),
+                    StatusId = table.Column<int>(nullable: true),
+                    OperationId = table.Column<int>(nullable: true),
+                    Quantity = table.Column<string>(nullable: true),
+                    Data = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Internal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Internal_InternalOperation_OperationId",
+                        column: x => x.OperationId,
+                        principalTable: "InternalOperation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Internal_Products_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Internal_InternalStatus_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "InternalStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Internal_Warehouses_WarehousesId",
+                        column: x => x.WarehousesId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Inventory",
                 columns: table => new
                 {
@@ -293,8 +361,8 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Data = table.Column<DateTime>(type: "datetime", nullable: false),
                     ProductsId = table.Column<int>(nullable: true),
-                    QuantityFact = table.Column<int>(nullable: false),
-                    QuantityAcc = table.Column<int>(nullable: false),
+                    QuantityFact = table.Column<string>(nullable: true),
+                    QuantityAcc = table.Column<string>(nullable: true),
                     Units = table.Column<int>(nullable: false),
                     WarehousesId = table.Column<int>(nullable: true),
                     Deviation = table.Column<int>(nullable: false),
@@ -327,7 +395,7 @@ namespace Persistence.Migrations
                     WarehousesFromId = table.Column<int>(nullable: true),
                     WarehousesToId = table.Column<int>(nullable: true),
                     ProductsId = table.Column<int>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
+                    Quantity = table.Column<string>(nullable: true),
                     UnitsId = table.Column<int>(nullable: true),
                     Data = table.Column<DateTime>(type: "datetime", nullable: false),
                     Employee = table.Column<string>(nullable: true)
@@ -373,10 +441,11 @@ namespace Persistence.Migrations
                     WarehousesId = table.Column<int>(nullable: true),
                     Employee = table.Column<string>(nullable: true),
                     ProductsId = table.Column<int>(nullable: true),
-                    Quantity = table.Column<int>(nullable: true),
+                    Quantity = table.Column<string>(nullable: true),
                     UnitsId = table.Column<int>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
-                    OrderStatusId = table.Column<int>(nullable: true)
+                    OrderStatusId = table.Column<int>(nullable: true),
+                    Status = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -427,10 +496,11 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RegistrationWriteTypeId = table.Column<int>(nullable: true),
                     InventoryId = table.Column<int>(nullable: true),
+                    Status = table.Column<bool>(nullable: false),
                     WarehousesId = table.Column<int>(nullable: true),
                     ProductsId = table.Column<int>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    Units = table.Column<int>(nullable: false),
+                    Quantity = table.Column<string>(nullable: true),
+                    UnitsId = table.Column<int>(nullable: true),
                     Data = table.Column<DateTime>(type: "datetime", nullable: false),
                     Employee = table.Column<string>(nullable: true)
                 },
@@ -456,6 +526,12 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_RegistrationWrite_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_RegistrationWrite_Warehouses_WarehousesId",
                         column: x => x.WarehousesId,
                         principalTable: "Warehouses",
@@ -475,7 +551,7 @@ namespace Persistence.Migrations
                     Partners = table.Column<int>(nullable: false),
                     Warehouses = table.Column<int>(nullable: false),
                     Products = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
+                    Quantity = table.Column<string>(nullable: true),
                     Units = table.Column<int>(nullable: false),
                     Employee = table.Column<string>(nullable: true),
                     Comment = table.Column<string>(nullable: true)
@@ -498,17 +574,42 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "InternalOperation",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Оприходование" },
+                    { 2, "Списание" },
+                    { 3, "Заказ клиента" },
+                    { 4, "Заказ поставщику" },
+                    { 5, "Отгрузка" },
+                    { 6, "Поступление" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InternalStatus",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Оприходование" },
+                    { 2, "Списание" },
+                    { 3, "К обеспечению" },
+                    { 4, "Резерв" },
+                    { 5, "Не в резерве" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "OrderStatus",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Без статуса" },
+                    { 7, "Отменен" },
+                    { 6, "Выполнен" },
+                    { 5, "Принят" },
                     { 2, "Новый" },
                     { 3, "Ожидает проверки" },
-                    { 4, "Ожидает отгрузки" },
-                    { 5, "Принят" },
-                    { 6, "Выполнен" },
-                    { 7, "Отменен" }
+                    { 1, "Без статуса" },
+                    { 4, "Ожидает отгрузки" }
                 });
 
             migrationBuilder.InsertData(
@@ -534,8 +635,9 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
+                    { 2, "Списание" },
                     { 1, "Оприходование" },
-                    { 2, "Списание" }
+                    { 3, "Отгрузка" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -576,6 +678,26 @@ namespace Persistence.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Internal_OperationId",
+                table: "Internal",
+                column: "OperationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Internal_ProductsId",
+                table: "Internal",
+                column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Internal_StatusId",
+                table: "Internal",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Internal_WarehousesId",
+                table: "Internal",
+                column: "WarehousesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_ProductsId",
@@ -673,6 +795,11 @@ namespace Persistence.Migrations
                 column: "RegistrationWriteTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RegistrationWrite_UnitsId",
+                table: "RegistrationWrite",
+                column: "UnitsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RegistrationWrite_WarehousesId",
                 table: "RegistrationWrite",
                 column: "WarehousesId");
@@ -696,6 +823,9 @@ namespace Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Internal");
+
+            migrationBuilder.DropTable(
                 name: "Moving");
 
             migrationBuilder.DropTable(
@@ -709,6 +839,12 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "InternalOperation");
+
+            migrationBuilder.DropTable(
+                name: "InternalStatus");
 
             migrationBuilder.DropTable(
                 name: "Orders");

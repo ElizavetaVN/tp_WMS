@@ -1,4 +1,7 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.InventoryFeatures.Queries;
+using Application.Features.ProductFeatures.Queries;
+using Application.Features.WarehouseFeatures.Queries;
+using Application.Interfaces;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -13,20 +16,22 @@ namespace Application.Features.RegistrationWriteFeatures.Commands
     public class UpdateRegistrationWriteCommand : IRequest<RegistrationWrite>
     {
         public int Id { get; set; }
-        public RegistrationWriteType RegistrationWriteType { get; set; }
-        public Inventory Inventory { get; set; }
-        public Warehouses Warehouses { get; set; }
-        public Products Products { get; set; }
-        public int Quantity { get; set; }
+        public int RegistrationWriteType { get; set; }
+        public int Inventory { get; set; }
+        public int Warehouses { get; set; }
+        public int Products { get; set; }
+        public string Quantity { get; set; }
         public int Units { get; set; }
         public DateTime Data { get; set; }
         public string Employee { get; set; }
 
         public class UpdateRegistrationWriteCommandHandler : IRequestHandler<UpdateRegistrationWriteCommand, RegistrationWrite>
         {
+            private readonly IMediator _mediator;
             private readonly IRegistrationWriteDbContext _context;
-            public UpdateRegistrationWriteCommandHandler(IRegistrationWriteDbContext context)
+            public UpdateRegistrationWriteCommandHandler(IRegistrationWriteDbContext context, IMediator mediator)
             {
+                _mediator = mediator;
                 _context = context;
             }
             public async Task<RegistrationWrite> Handle(UpdateRegistrationWriteCommand command, CancellationToken cancellationToken)
@@ -39,13 +44,16 @@ namespace Application.Features.RegistrationWriteFeatures.Commands
                 }
                 else
                 {
-                    RegistrationWrite.RegistrationWriteType = command.RegistrationWriteType;
-                    RegistrationWrite.Inventory = command.Inventory;
-                    RegistrationWrite.Warehouses = command.Warehouses;
-                    RegistrationWrite.Products = command.Products;
+                    var model1 = (await _mediator.Send(new GetProductByIdQuery { Id = command.Products }));
+                    var model2 = (await _mediator.Send(new GetInventoryByIdQuery { Id = command.Inventory }));
+                    var model3 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
+
+                    RegistrationWrite.Inventory = model2;
+                    RegistrationWrite.Warehouses = model3;
+                    RegistrationWrite.Products = model1;
                     RegistrationWrite.Quantity = command.Quantity;
-                    RegistrationWrite.Units = command.Units;
-                    RegistrationWrite.Data = command.Data;
+                    RegistrationWrite.Units = model1.Units;
+                    RegistrationWrite.Data = DateTime.Now;
                     RegistrationWrite.Employee = command.Employee;
 
                     await _context.SaveChangesAsync();

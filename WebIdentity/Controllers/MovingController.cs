@@ -71,23 +71,7 @@ namespace WebIdentity.Controllers
         /// <returns></returns>
 
 
-        [HttpGet("Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var model = (await _mediator.Send(new GetMovingByIdQuery { Id = id }));
-            return View(model);
-        }
-        /// <summary>
-        /// Deletes Product Entity based on Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost("Delete/{id}")]
-        public async Task<IActionResult> Delete1(int id)
-        {
-            await _mediator.Send(new DeleteMovingByIdCommand { Id = id });
-            return RedirectToActionPermanent("Index");
-        }
+       
 
 
         [HttpGet("Update/{id}")]

@@ -21,20 +21,26 @@ namespace Persistence.Context
             IRegistrationWriteDbContext,
             IRegistrationWriteTypeDbContext,
             IUnitDbContext, 
-            IWarehouseDbContext
+            IWarehouseDbContext,
+            IInternalDbContext,
+            IInternalOperationDbContext,
+            IInternalStatusDbContext
     {
-        public DbSet<Inventory> Inventory { get; set; }
-        public DbSet<Moving> Moving { get; set; }
-        public DbSet<Orders> Orders { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }//
+        public DbSet<Moving> Moving { get; set; }//
+        public DbSet<Orders> Orders { get; set; }//
         public DbSet<OrderStatus> OrderStatus { get; set; }
         public DbSet<OrderType> OrderType { get; set; }
         public DbSet<Partners> Partners { get; set; }
         public DbSet<Products> Products { get; set; }
-        public DbSet<Realization> Realization { get; set; }
+        public DbSet<Realization> Realization { get; set; }//
         public DbSet<RealizationType> RealizationType { get; set; }
-        public DbSet<RegistrationWrite> RegistrationWrite { get; set; }
+        public DbSet<RegistrationWrite> RegistrationWrite { get; set; }//
         public DbSet<RegistrationWriteType> RegistrationWriteType { get; set; }
         public DbSet<Units> Units { get; set; }
+        public DbSet<Internal> Internal { get; set; }//
+        public DbSet<InternalStatus> InternalStatus { get; set; }
+        public DbSet<InternalOperation> InternalOperation { get; set; }
         public DbSet<Warehouses> Warehouses { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -49,6 +55,25 @@ namespace Persistence.Context
             modelBuilder.Entity<Orders>().Property(p => p.Data).HasColumnType("datetime");
             modelBuilder.Entity<Realization>().Property(p => p.Data).HasColumnType("datetime");
             modelBuilder.Entity<RegistrationWrite>().Property(p => p.Data).HasColumnType("datetime");
+            modelBuilder.Entity<Orders>().Property(p => p.Quantity).IsRequired(false);
+            modelBuilder.Entity<Moving>().Property(p => p.Quantity).IsRequired(false);
+
+            modelBuilder.Entity<InternalStatus>().HasData(new OrderStatus[] {
+                new OrderStatus{Id = 1,Name="Оприходование"},
+                new OrderStatus{Id = 2, Name="Списание"},
+                new OrderStatus{Id = 3, Name="К обеспечению"},
+                new OrderStatus{Id = 4, Name="Резерв"},
+                new OrderStatus{Id = 5, Name="Не в резерве"},
+            });
+
+            modelBuilder.Entity<InternalOperation>().HasData(new OrderStatus[] {
+                new OrderStatus{Id = 1,Name="Оприходование"},
+                new OrderStatus{Id = 2, Name="Списание"},
+                new OrderStatus{Id = 3, Name="Заказ клиента"},
+                new OrderStatus{Id = 4, Name="Заказ поставщику"},
+                new OrderStatus{Id = 5, Name="Отгрузка"},
+                new OrderStatus{Id = 6, Name="Поступление"},
+            });
 
             modelBuilder.Entity<OrderStatus>().HasData(new OrderStatus[] {
                 new OrderStatus{Id = 1,Name="Без статуса"},
@@ -66,6 +91,7 @@ namespace Persistence.Context
             modelBuilder.Entity<RegistrationWriteType>().HasData(new RegistrationWriteType[] {
                 new RegistrationWriteType{Id = 1,Name="Оприходование"},
                 new RegistrationWriteType{Id = 2, Name="Списание"},
+                new RegistrationWriteType{Id = 3, Name="Отгрузка"},
             });
             modelBuilder.Entity<RealizationType>().HasData(new RealizationType[] {
                 new RealizationType{Id = 1,Name="Списание товаров"},

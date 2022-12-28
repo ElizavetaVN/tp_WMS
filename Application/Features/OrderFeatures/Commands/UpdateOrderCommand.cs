@@ -25,7 +25,7 @@ namespace Application.Features.OrderFeatures.Commands
         public int Warehouses { get; set; }
         public string Employee { get; set; }
         public int Products { get; set; }
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
         public int Units { get; set; }
         public string Comment { get; set; }
         public int OrderStatus { get; set; }

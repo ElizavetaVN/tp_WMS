@@ -102,7 +102,7 @@ namespace WebIdentity.Controllers
             
             var model = (await _mediator.Send(new GetProductByIdQuery { Id = id }));
 
-            var un = await _mediator.Send(new GetAllUnitsQuery());
+            //var un = await _mediator.Send(new GetAllUnitsQuery());
             SelectList unit = new SelectList(await _mediator.Send(new GetAllUnitsQuery()), "Id", "Name", model.Units.Id) ;
             ViewBag.Units = unit;
 

@@ -21,20 +21,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
+                <input type="number" asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WarehousesFrom" class="control-label"></label>
                 <p>
-
                     @Html.DropDownListFor(model => model.WarehousesFrom, ViewBag.WarehousesFrom as SelectList)
                 </p>
             </div>
             <div class="form-group">
                 <label asp-for="WarehousesTo" class="control-label"></label>
                 <p>
-
                     @Html.DropDownListFor(model => model.WarehousesTo, ViewBag.WarehousesTo as SelectList)
                 </p>
             </div>

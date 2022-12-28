@@ -11,9 +11,10 @@ namespace Domain.Entities
         public Warehouses Warehouses { get; set; }
         public string Employee { get; set; }
         public Products Products { get; set; }
-        public int Quantity { get; set; }
+        public string Quantity { get; set; }
         public Units Units { get; set; }
         public string Comment { get; set; }
         public OrderStatus OrderStatus { get; set; }
+        public bool Status { get; set; }
     }
 }

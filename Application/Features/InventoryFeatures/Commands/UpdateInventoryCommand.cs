@@ -15,8 +15,8 @@ namespace Application.Features.InventoryFeatures.Commands
         public int Id { get; set; }
         public DateTime Data { get; set; }
         public Products Products { get; set; }
-        public int QuantityFact { get; set; }
-        public int QuantityAcc { get; set; }
+        public string QuantityFact { get; set; }
+        public string QuantityAcc { get; set; }
         public int Units { get; set; }
         public Warehouses Warehouses { get; set; }
         public int Deviation { get; set; }

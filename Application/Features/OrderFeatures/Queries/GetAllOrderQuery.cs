@@ -40,7 +40,6 @@ namespace Application.Features.OrderFeatures.Queries
                         unit.Partners = unit.Products.Provider;
                         await _context.SaveChangesAsync();
                     }
-
                 }
                 if (Order == null)
                 {

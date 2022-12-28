@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.OrderFeatures.Queries;
 using Application.Features.MovingFeatures.Queries;
+using Application.Features.RegistrationWriteFeatures.Queries;
 
 namespace Application.Features.ProductFeatures.Queries
 {
@@ -32,6 +33,7 @@ namespace Application.Features.ProductFeatures.Queries
 
                 var model1 = (await _mediator.Send(new GetAllOrderQuery()));
                 var model2 = (await _mediator.Send(new GetAllMovingQuery()));
+                var model3 = (await _mediator.Send(new GetAllRegistrationWriteQuery()));
 
                 foreach (var unit in productList)
                 {
@@ -50,6 +52,20 @@ namespace Application.Features.ProductFeatures.Queries
                         }
                     }
                     foreach (var mod in model2)
+                    {
+                        if (unit == mod.Products && mod != null)
+                        {
+                            unit.Status = true;
+                            await _context.SaveChangesAsync();
+                            break;
+                        }
+                        else
+                        {
+                            unit.Status = false;
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    foreach (var mod in model3)
                     {
                         if (unit == mod.Products && mod != null)
                         {
