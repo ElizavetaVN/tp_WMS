@@ -1,4 +1,5 @@
-﻿using Application.Features.ProductFeatures.Queries;
+﻿using Application.Features.InternalFeatures.Queries;
+using Application.Features.ProductFeatures.Queries;
 using Application.Features.WarehouseFeatures.Queries;
 using Application.Interfaces;
 using Domain.Entities;
@@ -35,14 +36,24 @@ namespace Application.Features.InventoryFeatures.Commands
                 var model1 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
                 var model2 = (await _mediator.Send(new GetProductByIdQuery { Id = command.Products }));
 
+                var model3 = await _mediator.Send(new GetAllInternalQuery());
+                int N = 0;
+                foreach (var mod in model3)
+                {
+                    if ((mod.Warehouses == model1) && (mod.Products == model2))
+                    {
+                        N = N + Convert.ToInt32(mod.Quantity);
+                    }
+                }
                 var Inventory = new Inventory();
                 Inventory.Data = DateTime.Now;
                 Inventory.Products = model2;
-                Inventory.QuantityFact = command.QuantityFact;
+                Inventory.QuantityFact = N.ToString();
                 Inventory.QuantityAcc = command.QuantityAcc;
                 Inventory.Units = model2.Units;
                 Inventory.Warehouses = model1;
                 Inventory.Employee = command.Employee;
+                model2.Status = true;
                 _context.Inventory.Add(Inventory);
                 await _context.SaveChangesAsync();
                 return Inventory;

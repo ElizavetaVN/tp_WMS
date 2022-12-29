@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Application.Features.InternalFeatures.Commands;
+using Application.Features.InternalFeatures.Queries;
 using Application.Features.MovingFeatures.Commands;
 using Application.Features.MovingFeatures.Queries;
 using Application.Features.ProductFeatures.Queries;
@@ -45,12 +47,44 @@ namespace WebIdentity.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateMovingCommand command)
+        public async Task<IActionResult> Create(CreateMovingCommand command, CreateInternalCommand com)
         {
+            var model = await _mediator.Send(command);
 
-            await _mediator.Send(command);
+            var model4 = await _mediator.Send(new GetAllInternalQuery());
+            int N = 0;
+            foreach (var mod in model4)
+            {
+                if ((mod.Products == model.Products) && (mod.Warehouses.Id == command.WarehousesFrom) && (mod.Operation.Id == 1))
+                {
+                    N = N + Convert.ToInt32(mod.Quantity);
+                }
+                else if ((mod.Products == model.Products) && (mod.Warehouses.Id == command.WarehousesFrom) && (mod.Operation.Id == 2))
+                {
+                    N = N - Convert.ToInt32(mod.Quantity);
+                }
+            }
+            if (N >= Convert.ToInt32(model.Quantity))
+            {
+                com.Warehouses = model.WarehousesFrom;
+                com.Products = model.Products;
+                com.Quantity = model.Quantity;
+                com.Operation = 2; //расход
+                await _mediator.Send(com);
 
-            return RedirectToActionPermanent("Index");
+                com.Warehouses = model.WarehousesTo;
+                com.Products = model.Products;
+                com.Quantity = model.Quantity;
+                com.Operation = 1; //приход
+                await _mediator.Send(com);
+
+                return RedirectToActionPermanent("Index");
+            }
+            else
+            {
+                await _mediator.Send(new DeleteMovingByIdCommand { Id = model.Id });
+                return RedirectToActionPermanent("Index");
+            }
 
         }
         /// <summary>

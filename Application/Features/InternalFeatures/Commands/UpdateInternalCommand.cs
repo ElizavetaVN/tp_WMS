@@ -38,7 +38,7 @@ namespace Application.Features.InternalFeatures.Commands
             }
             public async Task<Internal> Handle(UpdateInternalCommand command, CancellationToken cancellationToken)
             {
-                var Internal = _context.Internal.Where(a => a.Number == command.Id).Where(a => a.Operation.Id == command.Id).FirstOrDefault();
+                var Internal = _context.Internal.Where(a => a.Id == command.Id).FirstOrDefault();
                 if (Internal == null)
                 {
                     return default;

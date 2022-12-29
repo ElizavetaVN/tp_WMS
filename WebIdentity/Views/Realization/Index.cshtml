@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                Type
+                Тип
             </th>
             <th>
-                Order
+                Заказ
             </th>
             <th>
-                Partner
+                Контрагент
             </th>
             <th>
-                Warehouse
+                Склад
             </th>
             <th>
-                Product
+                Номенклатура
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Data)
+                Дата
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantity)
+                Количество
             </th>
             <th>
-                Units
+                Единицы измерения
             </th>
             <th></th>
         </tr>
@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Order.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Partners.Id)
+                @Html.DisplayFor(modelItem => item.Partners.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Warehouses.Name)

@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Создать</h1>
 
-<h4>RegistrationWrite</h4>
+<h4>Оприходование/списание</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +19,7 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="RegistrationWriteType" class="control-label"></label>
+                <label asp-for="RegistrationWriteType" class="control-label">Тип</label>
                 <p>
 
                     @Html.DropDownListFor(model => model.RegistrationWriteType, ViewBag.RegistrationWriteType as SelectList)

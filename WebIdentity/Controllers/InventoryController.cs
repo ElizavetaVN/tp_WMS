@@ -8,6 +8,7 @@ using Application.Features.UnitFeatures.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Application.Features.InternalFeatures.Queries;
 
 namespace WebIdentity.Controllers
 {
@@ -46,7 +47,8 @@ namespace WebIdentity.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateInventoryCommand command)
         {
-            await _mediator.Send(command);
+            var model1 = await _mediator.Send(command); ;
+            
             return RedirectToActionPermanent("Index");
         }
         /// <summary>

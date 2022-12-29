@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Номенклатура</h1>
 
 <p>
     <a class="btn btn-primary" asp-controller="Product" asp-action="Create">Create</a>
@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Наименование
             </th>
             <th>
-                Units
+                Единицы измерения
             </th>
             <th>
-                Provider
+                Поставщик
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArticleNumber)
+                Артикул
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Статус
             </th>
             <th></th>
         </tr>

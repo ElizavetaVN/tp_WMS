@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Features.InternalFeatures.Commands;
 using Application.Features.InternalFeatures.Queries;
+using Application.Features.InternalOperationFeatures.Queries;
 using Application.Features.OrderFeatures.Commands;
 using Application.Features.OrderFeatures.Queries;
 using Application.Features.OrderStatusFeatures.Queries;
@@ -44,12 +45,11 @@ namespace WebIdentity.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateOrderCommand command)
+        public async Task<IActionResult> Create(CreateOrderCommand command, CreateInternalCommand com)
         {
             var model = await _mediator.Send(command);
-            return RedirectToActionPermanent("Update", new { id = model });
 
-            
+            return RedirectToActionPermanent("Update", new { id = model.Id});
         }
         /// <summary>
         /// Gets all Products.
@@ -106,6 +106,7 @@ namespace WebIdentity.Controllers
             }
             var model = await _mediator.Send(command);
             
+
             return RedirectToActionPermanent("Index");
         }
     }

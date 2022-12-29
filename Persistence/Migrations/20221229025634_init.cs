@@ -60,19 +60,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternalStatus",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InternalStatus", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderStatus",
                 columns: table => new
                 {
@@ -319,9 +306,7 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WarehousesId = table.Column<int>(nullable: true),
                     ProductsId = table.Column<int>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true),
                     OperationId = table.Column<int>(nullable: true),
-                    Number = table.Column<int>(nullable: false),
                     Quantity = table.Column<string>(nullable: true),
                     Data = table.Column<DateTime>(nullable: false)
                 },
@@ -338,12 +323,6 @@ namespace Persistence.Migrations
                         name: "FK_Internal_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Internal_InternalStatus_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "InternalStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -607,24 +586,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Оприходование" },
-                    { 2, "Списание" },
-                    { 3, "Заказ клиента" },
-                    { 4, "Заказ поставщику" },
-                    { 5, "Отгрузка" },
-                    { 6, "Поступление" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "InternalStatus",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Оприходование" },
-                    { 2, "Списание" },
-                    { 3, "К обеспечению" },
-                    { 4, "Резерв" },
-                    { 5, "Не в резерве" }
+                    { 1, "Приход" },
+                    { 2, "Расход" }
                 });
 
             migrationBuilder.InsertData(
@@ -632,13 +595,13 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 7, "Отменен" },
-                    { 6, "Выполнен" },
-                    { 5, "Принят" },
+                    { 1, "Без статуса" },
                     { 2, "Новый" },
                     { 3, "Ожидает проверки" },
-                    { 1, "Без статуса" },
-                    { 4, "Ожидает отгрузки" }
+                    { 4, "Ожидает отгрузки" },
+                    { 5, "Принят" },
+                    { 6, "Выполнен" },
+                    { 7, "Отменен" }
                 });
 
             migrationBuilder.InsertData(
@@ -664,8 +627,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 2, "Списание" },
                     { 1, "Оприходование" },
+                    { 2, "Списание" },
                     { 3, "Отгрузка" }
                 });
 
@@ -717,11 +680,6 @@ namespace Persistence.Migrations
                 name: "IX_Internal_ProductsId",
                 table: "Internal",
                 column: "ProductsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Internal_StatusId",
-                table: "Internal",
-                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Internal_WarehousesId",
@@ -896,9 +854,6 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "InternalOperation");
-
-            migrationBuilder.DropTable(
-                name: "InternalStatus");
 
             migrationBuilder.DropTable(
                 name: "Orders");

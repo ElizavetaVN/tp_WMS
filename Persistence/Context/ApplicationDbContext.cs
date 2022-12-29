@@ -23,8 +23,7 @@ namespace Persistence.Context
             IUnitDbContext, 
             IWarehouseDbContext,
             IInternalDbContext,
-            IInternalOperationDbContext,
-            IInternalStatusDbContext
+            IInternalOperationDbContext
     {
         public DbSet<Inventory> Inventory { get; set; }//
         public DbSet<Moving> Moving { get; set; }//
@@ -39,7 +38,6 @@ namespace Persistence.Context
         public DbSet<RegistrationWriteType> RegistrationWriteType { get; set; }
         public DbSet<Units> Units { get; set; }
         public DbSet<Internal> Internal { get; set; }//
-        public DbSet<InternalStatus> InternalStatus { get; set; }
         public DbSet<InternalOperation> InternalOperation { get; set; }
         public DbSet<Warehouses> Warehouses { get; set; }
 
@@ -58,21 +56,10 @@ namespace Persistence.Context
             modelBuilder.Entity<Orders>().Property(p => p.Quantity).IsRequired(false);
             modelBuilder.Entity<Moving>().Property(p => p.Quantity).IsRequired(false);
 
-            modelBuilder.Entity<InternalStatus>().HasData(new OrderStatus[] {
-                new OrderStatus{Id = 1,Name="Оприходование"},
-                new OrderStatus{Id = 2, Name="Списание"},
-                new OrderStatus{Id = 3, Name="К обеспечению"},
-                new OrderStatus{Id = 4, Name="Резерв"},
-                new OrderStatus{Id = 5, Name="Не в резерве"},
-            });
 
             modelBuilder.Entity<InternalOperation>().HasData(new OrderStatus[] {
-                new OrderStatus{Id = 1,Name="Оприходование"},
-                new OrderStatus{Id = 2, Name="Списание"},
-                new OrderStatus{Id = 3, Name="Заказ клиента"},
-                new OrderStatus{Id = 4, Name="Заказ поставщику"},
-                new OrderStatus{Id = 5, Name="Отгрузка"},
-                new OrderStatus{Id = 6, Name="Поступление"},
+                new OrderStatus{Id = 1,Name="Приход"},
+                new OrderStatus{Id = 2, Name="Расход"},
             });
 
             modelBuilder.Entity<OrderStatus>().HasData(new OrderStatus[] {

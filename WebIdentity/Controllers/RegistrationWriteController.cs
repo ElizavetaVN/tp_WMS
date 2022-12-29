@@ -8,6 +8,7 @@ using Application.Features.WarehouseFeatures.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Application.Features.InternalFeatures.Commands;
 
 namespace WebIdentity.Controllers
 {
@@ -83,16 +84,39 @@ namespace WebIdentity.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Update/{id}")]
-        public async Task<IActionResult> Update(int id, UpdateRegistrationWriteCommand command)
+        public async Task<IActionResult> Update(int id, UpdateRegistrationWriteCommand command, CreateInternalCommand com)
         {
-
+            var model1 = (await _mediator.Send(new GetRegistrationWriteByIdQuery { Id = id }));
+            var model2 = await _mediator.Send(new GetRegistrationWriteTypeByIdQuery { Id = 1 }); // оприходование
+            var model3 = await _mediator.Send(new GetRegistrationWriteTypeByIdQuery { Id = 2 }); //списание
             if (id != command.Id)
             {
                 return BadRequest();
             }
             var model = await _mediator.Send(command);
+            if (model != null)
+            {
+                com.Warehouses = model.Warehouses;
+            com.Products = model.Products;
+            com.Quantity = model.Quantity;
 
+            if (model1.RegistrationWriteType == model3)
+            {
+                com.Operation = 2; //расход
+            }
+            else if (model1.RegistrationWriteType == model2)
+            {
+                com.Operation = 1; //приход
+            }
+            await _mediator.Send(com);
             return RedirectToActionPermanent("Index");
+            }
+
+            else
+            {
+                await _mediator.Send(new DeleteRegistrationWriteByIdCommand { Id = id });
+                return RedirectToActionPermanent("Index");
+            }
         }
     }
 }

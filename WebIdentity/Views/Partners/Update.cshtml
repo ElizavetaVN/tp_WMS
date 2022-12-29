@@ -4,36 +4,36 @@
     ViewData["Title"] = "Update";
 }
 
-<h1>Update</h1>
+<h1>Изменение</h1>
 
-<h4>Partners</h4>
+<h4>Контрагент</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Наименование</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="INN" class="control-label"></label>
+                <label asp-for="INN" class="control-label">ИНН</label>
                 <input asp-for="INN" class="form-control" />
                 <span asp-validation-for="INN" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OGRN" class="control-label"></label>
+                <label asp-for="OGRN" class="control-label">ОГРН</label>
                 <input asp-for="OGRN" class="form-control" />
                 <span asp-validation-for="OGRN" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OKPO" class="control-label"></label>
+                <label asp-for="OKPO" class="control-label">ОКПО</label>
                 <input asp-for="OKPO" class="form-control" />
                 <span asp-validation-for="OKPO" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="KPP" class="control-label"></label>
+                <label asp-for="KPP" class="control-label">КПП</label>
                 <input asp-for="KPP" class="form-control" />
                 <span asp-validation-for="KPP" class="text-danger"></span>
             </div>
@@ -53,7 +53,7 @@
                 <span asp-validation-for="PostallAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
+                <label asp-for="Phone" class="control-label">Телефон</label>
                 <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>

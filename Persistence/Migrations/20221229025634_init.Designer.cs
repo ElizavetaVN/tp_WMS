@@ -10,7 +10,7 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221228065841_init")]
+    [Migration("20221229025634_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
                     b.Property<int?>("OperationId")
                         .HasColumnType("int");
 
@@ -43,9 +40,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Quantity")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("WarehousesId")
                         .HasColumnType("int");
 
@@ -54,8 +48,6 @@ namespace Persistence.Migrations
                     b.HasIndex("OperationId");
 
                     b.HasIndex("ProductsId");
-
-                    b.HasIndex("StatusId");
 
                     b.HasIndex("WarehousesId");
 
@@ -80,74 +72,12 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Оприходование"
+                            Name = "Приход"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Списание"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Заказ клиента"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Заказ поставщику"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Отгрузка"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Поступление"
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Entities.InternalStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InternalStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Оприходование"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Списание"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "К обеспечению"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Резерв"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Не в резерве"
+                            Name = "Расход"
                         });
                 });
 
@@ -849,10 +779,6 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.Products", "Products")
                         .WithMany()
                         .HasForeignKey("ProductsId");
-
-                    b.HasOne("Domain.Entities.InternalStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
 
                     b.HasOne("Domain.Entities.Warehouses", "Warehouses")
                         .WithMany()

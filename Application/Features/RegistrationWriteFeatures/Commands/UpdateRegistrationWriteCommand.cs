@@ -1,5 +1,7 @@
-﻿using Application.Features.InventoryFeatures.Queries;
+﻿using Application.Features.InternalFeatures.Queries;
+using Application.Features.InventoryFeatures.Queries;
 using Application.Features.ProductFeatures.Queries;
+using Application.Features.RegistrationWriteFeatures.Queries;
 using Application.Features.WarehouseFeatures.Queries;
 using Application.Interfaces;
 using Domain.Entities;
@@ -37,7 +39,7 @@ namespace Application.Features.RegistrationWriteFeatures.Commands
             public async Task<RegistrationWrite> Handle(UpdateRegistrationWriteCommand command, CancellationToken cancellationToken)
             {
                 var RegistrationWrite = _context.RegistrationWrite.Where(a => a.Id == command.Id).FirstOrDefault();
-
+                var model5 = (await _mediator.Send(new GetRegistrationWriteByIdQuery { Id = command.Id }));
                 if (RegistrationWrite == null)
                 {
                     return default;
@@ -55,9 +57,34 @@ namespace Application.Features.RegistrationWriteFeatures.Commands
                     RegistrationWrite.Units = model1.Units;
                     RegistrationWrite.Data = DateTime.Now;
                     RegistrationWrite.Employee = command.Employee;
-
-                    await _context.SaveChangesAsync();
-                    return RegistrationWrite;
+                    if (model5.RegistrationWriteType.Id == 2)
+                    {
+                        var model4 = await _mediator.Send(new GetAllInternalQuery());
+                        int N = 0;
+                        foreach (var mod in model4)
+                        {
+                            if ((mod.Products == model1) && (mod.Warehouses == model3) && (mod.Operation.Id == 1))
+                            {
+                                N = N + Convert.ToInt32(mod.Quantity);
+                            }
+                            else if ((mod.Products == model1) && (mod.Warehouses == model3) && (mod.Operation.Id == 2))
+                            {
+                                N = N - Convert.ToInt32(mod.Quantity);
+                            }
+                        }
+                        if (N >= Convert.ToInt32(command.Quantity))
+                        {
+                            await _context.SaveChangesAsync();
+                            return RegistrationWrite;
+                        }
+                        else return default;
+                    }
+                    else
+                    {
+                        await _context.SaveChangesAsync();
+                        return RegistrationWrite;
+                    }
+                    
                 }
             }
         }

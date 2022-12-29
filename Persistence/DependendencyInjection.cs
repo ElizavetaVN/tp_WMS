@@ -64,8 +64,7 @@ namespace Persistence
             services.AddScoped<IInternalOperationDbContext>(provider =>
                 provider.GetService<ApplicationDbContext>());
 
-            services.AddScoped<IInternalStatusDbContext>(provider =>
-                provider.GetService<ApplicationDbContext>());
+
         }
     }
 }

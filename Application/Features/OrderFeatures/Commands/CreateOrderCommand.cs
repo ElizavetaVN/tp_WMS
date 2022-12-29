@@ -1,6 +1,5 @@
 ﻿using Application.Features.InternalFeatures.Commands;
 using Application.Features.InternalOperationFeatures.Queries;
-using Application.Features.InternalStatusFeatures.Queries;
 using Application.Features.OrderStatusFeatures.Queries;
 using Application.Features.OrderTypeFeatures.Queries;
 using Application.Features.PartnerFeatures.Queries;
@@ -15,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OrderFeatures.Commands
 {
-    public class CreateOrderCommand : IRequest<int>
+    public class CreateOrderCommand : IRequest<Orders>
     {
         public int OrderType { get; set; }
         public DateTime Data { get; set; }
@@ -29,7 +28,7 @@ namespace Application.Features.OrderFeatures.Commands
         public string Comment { get; set; }
         public int OrderStatus { get; set; }
 
-        public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int>
+        public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Orders>
         {
             private readonly IMediator _mediator;
             private readonly IOrderDbContext _context;
@@ -38,7 +37,7 @@ namespace Application.Features.OrderFeatures.Commands
                 _mediator = mediator;
                 _context = context;
             }
-            public async Task<int> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
+            public async Task<Orders> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
             {
                 var model2 = (await _mediator.Send(new GetOrderTypeByIdQuery { Id = command.OrderType }));
 
@@ -55,9 +54,9 @@ namespace Application.Features.OrderFeatures.Commands
                 _context.Orders.Add(Order);
                 await _context.SaveChangesAsync();
 
-                
+                //var model = await _mediator.Send(new CreateInternalCommand ());
 
-                return Order.Id;
+                return Order;
             }
         }
     }

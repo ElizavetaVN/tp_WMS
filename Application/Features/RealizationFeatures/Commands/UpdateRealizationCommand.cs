@@ -1,4 +1,6 @@
-﻿using Application.Features.OrderFeatures.Queries;
+﻿using Application.Features.InternalFeatures.Queries;
+using Application.Features.OrderFeatures.Queries;
+using Application.Features.RealizationFeatures.Queries;
 using Application.Features.WarehouseFeatures.Queries;
 using Application.Interfaces;
 using Domain.Entities;
@@ -35,7 +37,7 @@ namespace Application.Features.RealizationFeatures.Commands
             {
 
                 var model = (await _mediator.Send(new GetOrderByIdQuery { Id = command.Order }));
-
+                var model2 = (await _mediator.Send(new GetRealizationByIdQuery { Id = command.Id }));
                 var model1 = (await _mediator.Send(new GetWarehouseByIdQuery { Id = command.Warehouses }));
                 var Realization = _context.Realization.Where(a => a.Id == command.Id).FirstOrDefault();
 
@@ -54,8 +56,33 @@ namespace Application.Features.RealizationFeatures.Commands
                     Realization.Units = model.Units;
                     Realization.Employee = command.Employee;
                     Realization.Comment = command.Comment;
-                    await _context.SaveChangesAsync();
-                    return Realization;
+                    if (model2.RealizationType.Id == 1)
+                    {
+                        var model4 = await _mediator.Send(new GetAllInternalQuery());
+                        int N = 0;
+                        foreach (var mod in model4)
+                        {
+                            if ((mod.Products == model.Products) && (mod.Warehouses == model1) && (mod.Operation.Id == 1))
+                            {
+                                N = N + Convert.ToInt32(mod.Quantity);
+                            }
+                            else if ((mod.Products == model.Products) && (mod.Warehouses == model1) && (mod.Operation.Id == 2))
+                            {
+                                N = N - Convert.ToInt32(mod.Quantity);
+                            }
+                        }
+                        if (N >= Convert.ToInt32(model.Quantity))
+                        {
+                            await _context.SaveChangesAsync();
+                            return Realization;
+                        }
+                        else return default;
+                    }
+                    else
+                    {
+                        await _context.SaveChangesAsync();
+                        return Realization;
+                    }
                 }
             }
         }

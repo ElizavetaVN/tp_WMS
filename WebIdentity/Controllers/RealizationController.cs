@@ -10,6 +10,8 @@ using Application.Features.OrderFeatures.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Application.Features.InternalFeatures.Commands;
+using Application.Features.InternalFeatures.Queries;
 
 namespace WebIdentity.Controllers
 {
@@ -44,7 +46,6 @@ namespace WebIdentity.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateRealizationCommand command)
         {
-            //await _mediator.Send(command);
             var model = await _mediator.Send(command);
             return RedirectToActionPermanent("Update", new { id = model.Id });
 
@@ -88,6 +89,7 @@ namespace WebIdentity.Controllers
             SelectList warehouse = new SelectList((await _mediator.Send(new GetAllWarehouseQuery())), "Id", "Name", model.Warehouses);
             ViewBag.Warehouses = warehouse;
 
+
             return View(model);
         }
         /// <summary>
@@ -97,16 +99,39 @@ namespace WebIdentity.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Update/{id}")]
-        public async Task<IActionResult> Update(int id, UpdateRealizationCommand command)
+        public async Task<IActionResult> Update(int id, UpdateRealizationCommand command, CreateInternalCommand com)
         {
+                var model1 = (await _mediator.Send(new GetRealizationByIdQuery { Id = id }));
+                var model2 = await _mediator.Send(new GetRealizationTypeByIdQuery { Id = 1 });
+                var model3 = await _mediator.Send(new GetRealizationTypeByIdQuery { Id = 2 });
+                if (id != command.Id)
+                {
+                    return BadRequest();
+                }
+                var model = await _mediator.Send(command);
+            if (model != null) { 
+                com.Warehouses = model.Warehouses;
+                com.Products = model.Products;
+                com.Quantity = model.Quantity;
 
-            if (id != command.Id)
-            {
-                return BadRequest();
+                if (model1.RealizationType == model2)
+                {
+                    com.Operation = 2;
+                }
+                else if (model1.RealizationType == model3)
+                {
+                    com.Operation = 1;
+                }
+                await _mediator.Send(com);
+                
+                return RedirectToActionPermanent("Index");
             }
-            var model = await _mediator.Send(command);
-
-            return RedirectToActionPermanent("Index");
+        
+            else
+            {
+                await _mediator.Send(new DeleteRealizationByIdCommand { Id = id });
+                return RedirectToActionPermanent("Index");
+            }
         }
     }
 }

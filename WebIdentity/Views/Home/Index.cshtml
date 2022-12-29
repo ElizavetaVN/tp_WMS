@@ -27,46 +27,9 @@
     @if (SignInManager.IsSignedIn(User))
     {
         
-        <div class="row">
-
-            <div class="column">
-                <h3>Справочникик</h3>
-                <h4>
-                    <li>
-                        <a asp-area="" asp-controller="Units" asp-action="Index">Units</a>
-                    </li>
-                </h4>
-                <h4>
-                    <li>
-                        <a asp-area="" asp-controller="Product" asp-action="Index">Products</a>
-                    </li>
-                </h4>
-                <h4>
-                    <li>
-                        <a asp-area="" asp-controller="Warehouses" asp-action="Index">Warehouse</a>
-                    </li>
-                </h4>
-                <h4>
-                    <li>
-                        <a asp-area="" asp-controller="Partners" asp-action="Index">Partners</a>
-                    </li>
-                </h4>
-            </div>
-
-            <div class="column">
-                <h3>Реализация</h3>
-            </div>
-
-            <div class="column">
-                <h3>Поступление</h3>
-            </div>
-
-            <div class="column">
-                <h3>Склад</h3>
-            </div>
-
-            <div class="clear"></div>
-        </div>
+    <div class="text-center">
+        <h1 class="display-4">Добро пожаловать</h1>
+    </div>
 
     }
     else

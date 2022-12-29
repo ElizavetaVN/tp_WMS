@@ -4,16 +4,16 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Создание</h1>
 
-<h4>Moving</h4>
+<h4>Движение</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Products" class="control-label"></label>
+                <label asp-for="Products" class="control-label">Номенклатура</label>
                 <p>
 
                     @Html.DropDownListFor(model => model.Products, ViewBag.Products as SelectList)
@@ -25,19 +25,19 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WarehousesFrom" class="control-label"></label>
+                <label asp-for="WarehousesFrom" class="control-label">Откуда</label>
                 <p>
                     @Html.DropDownListFor(model => model.WarehousesFrom, ViewBag.WarehousesFrom as SelectList)
                 </p>
             </div>
             <div class="form-group">
-                <label asp-for="WarehousesTo" class="control-label"></label>
+                <label asp-for="WarehousesTo" class="control-label">Куда</label>
                 <p>
                     @Html.DropDownListFor(model => model.WarehousesTo, ViewBag.WarehousesTo as SelectList)
                 </p>
             </div>
             <div class="form-group">
-                <label asp-for="Employee" class="control-label"></label>
+                <label asp-for="Employee" class="control-label">Пользователь</label>
                 <input asp-for="Employee" class="form-control" />
                 <span asp-validation-for="Employee" class="text-danger"></span>
             </div>
